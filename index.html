@@ -1,0 +1,305 @@
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+        <style>
+            .sidebar{
+                width:70px;
+                z-index:1050;
+            }
+            .social{
+                width:36px;
+                height:36px;
+                border-radius:50%;
+                background:#212529;
+                color:#fff;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+            }
+
+            .social:hover{
+                background:#FF661A;
+                color:#fff;
+            }
+
+            .call-btn{
+                background:#27262B;
+                color:#fff;
+                border:none;
+                display:inline-flex;
+                margin-left:15px;
+                align-items:center;
+                gap:12px;
+                overflow:hidden;
+                transition:background-color .35s ease;
+            }
+
+            .call-btn:hover{
+                background:#FF661A;
+                color:#fff;
+            }
+
+            .text-wrap{
+                position:relative;
+                height:24px;
+                overflow:hidden;
+            }
+
+            .text-main,
+            .text-hover{
+                display:block;
+                line-height:24px;
+                text-transform:uppercase;
+                transition:transform .35s ease;
+            }
+
+            .text-hover{
+                position:absolute;
+                left:0;
+                top:100%;
+            }
+
+            .call-btn:hover .text-main,
+            .call-btn:hover .text-hover{
+                transform:translateY(-100%);
+            }
+
+            .arrow-circle{
+                width:28px;
+                height:28px;
+                border:1px solid #fff;
+                border-radius:50%;
+                display:flex;
+                align-items:center;
+                justify-content:center;
+                font-size:14px;
+                flex-shrink:0;
+            }
+
+            .menu-inner{
+                height:100%;
+                padding-left:38px !important;
+                border-left:1px solid #d8d6d3;
+            }
+
+            .menu-link{
+                color:#444246;
+                text-decoration:none;
+                text-transform:uppercase;
+                font-size:1.4rem;
+                font-weight:400;
+                letter-spacing:-0.03em;
+                transition:.4s ease;
+                margin-bottom:.75rem;
+            }
+            .menu-link:hover{
+                color:#FF661A;
+            }
+
+            .sidebar, .menu-panel{
+                transition: background-color .35s ease;
+                border-radius:0 12px 12px 0;
+            }
+
+            .menu-panel{
+                position:fixed;
+                top:0;
+                left:70px;
+                width:360px;
+                height:100vh;
+                background:#27262B;
+                transform:translateX(-100%);
+                transition:transform .45s ease, background-color .35s ease;
+                z-index:1040;
+                overflow:hidden;
+            }
+
+            .menu-panel.open{
+                transform:translateX(0);
+                background:#F5F4F0;
+            }
+
+            .sidebar{
+                transition:background-color .35s ease;
+            }
+
+            .sidebar.open{
+                background:#F5F4F0 !important;
+            }
+            #preloader{
+                transition:transform .8s ease;
+            }
+            .hero-section video{
+                object-fit:cover;
+                object-position:left bottom;
+                z-index:0;
+            }
+
+            .hero-section{
+                height:100vh !important;
+                overflow:hidden;
+            }
+
+            /*  */
+            
+        </style>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+        </head>
+        <body>
+
+        <!-- preloader -->
+        <div id="preloader" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="background:#F5F4F0; z-index:9999;">
+            <lottie-player id="logoAnimation" src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/67043691679330c81f8c647c_adelt%20logo%20animation_update.json" background="transparent" speed="1" style="width:300px;height:200px;" autoplay>
+            </lottie-player>
+            <div class="position-absolute bottom-0 start-0 w-100">
+                <div id="progressBar" style="width:0%; height:8px; background:#FF661A; opacity:1; transition: width 4s ease-in-out, opacity .25s ease;">
+                </div>
+            </div>
+        </div>
+
+        <!-- Left Sidebar -->
+        <div id="sidebar" class="sidebar position-fixed top-0 start-0 vh-100 bg-dark">
+            <button id="menuBtn" class="btn border-0 position-absolute top-50 start-50 translate-middle" style="color:#fff;">
+                <i id="menuIcon" class="fas fa-bars fs-3" ></i> 
+            </button>
+        </div>
+
+        <!-- Menu -->
+        <nav id="menu" class="menu-panel">
+        <div class="menu-inner d-flex flex-column p-4 h-100">
+                <img src="logo.svg" width="130" alt="Logo">
+                <div class="mt-auto">
+                    <a href="#" class="menu-link d-block my-3 fs-6 px-3">OUR CASES</a>
+                    <a href="#" class="menu-link d-block my-3 fs-6 px-3">REVIEWS</a>
+                    <a href="#" class="menu-link d-block my-3 fs-6 px-3">OUR APPROACH</a>
+                    <a href="#" class="menu-link d-block my-3 fs-6 px-3">PRICES</a>
+                    <a href="#" class="menu-link d-block my-3 fs-6 px-3">BLOG</a>
+                    <a href="#" class="btn call-btn rounded-pill ml-3 m-auto px-3 py-2"> 
+                        <span class="text-wrap">
+                            <span class="text-main">Schedule a Call</span>
+                            <span class="text-hover">Schedule a Call</span>
+                        </span>
+                        <span class="arrow-circle">↗</span>
+                    </a>
+                </div>
+                <div class="d-flex gap-2 mt-auto"> 
+                    <i class="fab fa-behance social" id="nav-cnt"></i>
+                    <i class="fab fa-linkedin social"></i>
+                    <i class="fab fa-instagram social"></i>
+                    <i class="far fa-envelope social"></i>
+                    <i class="fab fa-whatsapp social"></i>
+                </div>
+            </div>
+        </nav>
+
+        <!-- Main content -->
+         <!-- hero section -->  
+        <section class="hero-section d-flex align-items-center position-relative">
+            <video autoplay muted loop playsinline class="position-absolute top-0 start-0 w-100 h-100" style="object-fit:cover; object-position:left bottom; z-index:0;">
+                <source src="https://www.dropbox.com/scl/fi/udq8ym09m66v7c1oalw5i/main_v3.mp4?rlkey=l6g5qlp1o7lrb6x36bippo7rt&st=7iii2yrh&raw=1"" type="video/mp4">
+            </video>
+            <img src="logo.svg" class="position-absolute top-0 mt-4" width="120" style="left:120px;" alt="Logo">
+            <div class="container-fluid position-relative" style="z-index:2;">
+                <div class="position-absolute top-0 end-0 mt-4 me-5">
+                    <a href="#" class="btn call-btn rounded-pill mt-4 px-3 py-2">
+                        <span class="text-wrap">
+                            <span class="text-main">Schedule a Call</span>
+                            <span class="text-hover">Schedule a Call</span>
+                        </span>
+                        <span class="arrow-circle">↗</span>
+                    </a>
+                </div>
+                <div class="row min-vh-100 align-items-center justify-content-end" style="margin-top: 55px; margin-left: 120px;">
+                    <div class="col-lg-6">
+                        <p class="text-uppercase mb-3"> GO-TO-MARKET AGENCY </p>
+                        <h1 class="hero-title" style="font-size: 3rem !important; line-height: 1.2;"> Branding, websites & <br> strategies for startups </h1>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+       
+        <script>
+            const preloader = document.getElementById('preloader');
+            const player = document.getElementById('logoAnimation');
+            const progressBar = document.getElementById('progressBar');
+            window.addEventListener('load', () => {
+                requestAnimationFrame(() => {
+                    progressBar.style.width = '100%';
+                });
+            });
+
+            player.addEventListener('complete', () => {
+                progressBar.style.opacity = '0';
+                preloader.style.transition =
+                    'transform .8s cubic-bezier(.77,0,.175,1)';
+                preloader.style.transform =
+                    'translateY(-100%)';
+                setTimeout(() => {
+                    preloader.remove();
+                }, 800);
+            });
+        </script>
+
+        <script>
+            const menu = document.getElementById('menu');
+            const sidebar = document.getElementById('sidebar');
+            const menuBtn = document.getElementById('menuBtn');
+            const menuIcon = document.getElementById('menuIcon');
+            menuBtn.addEventListener('click', () => {
+            menu.classList.toggle('open');
+            sidebar.classList.toggle('open');
+
+            if (menu.classList.contains('open')) {
+                menuBtn.style.color = '#27262B';
+                menuIcon.className = 'fas fa-xmark fs-4';
+            } else {
+                menuBtn.style.color = '#fff';
+                menuIcon.className = 'fas fa-bars fs-4';
+            }
+            });
+        </script>
+        
+        <script>
+            $(function(){
+            let revealed = 1;
+            $(window).on('wheel', function(e){
+                const sectionTop = $('#servicesContainer').offset().top;
+                const scrollTop = $(window).scrollTop();
+                if(scrollTop < sectionTop - 200) return;
+                if(e.originalEvent.deltaY > 0){
+                    if(revealed < 4){
+                        $('.service-card').eq(revealed)
+                            .css({
+                                width:'33%',
+                                opacity:'1'
+                            });
+                        revealed++;
+                        if(revealed === 4){
+                            $('.service-card').css({
+                                width:'25%',
+                                opacity:'1'
+                            });
+                            $('.active-card')
+                                .css({
+                                    background:'#F5F4F0',
+                                    color:'#27262B'
+                                });
+                        }
+                    }
+                }
+            });
+        });
+        </script>
+        
+        </body>
+        </html>
