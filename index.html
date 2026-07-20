@@ -1,305 +1,1818 @@
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+<!DOCTYPE html>
+<html lang="en">
 
-        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-        <style>
-            .sidebar{
-                width:70px;
-                z-index:1050;
-            }
-            .social{
-                width:36px;
-                height:36px;
-                border-radius:50%;
-                background:#212529;
-                color:#fff;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-            }
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@300;400;500;600;700;900&display=swap"
+    rel="stylesheet">
 
-            .social:hover{
-                background:#FF661A;
-                color:#fff;
-            }
+  <style>
+    html,
+    body {
+      overflow-x: hidden;
+      font-family: 'DM Sans', sans-serif;
+    }
 
-            .call-btn{
-                background:#27262B;
-                color:#fff;
-                border:none;
-                display:inline-flex;
-                margin-left:15px;
-                align-items:center;
-                gap:12px;
-                overflow:hidden;
-                transition:background-color .35s ease;
-            }
+   /* SIDEBAR / MENU / HERO */
+    .sidebar {
+      width: 70px;
+      z-index: 1050;
+    }
 
-            .call-btn:hover{
-                background:#FF661A;
-                color:#fff;
-            }
+    .social {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      background: #212529;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
 
-            .text-wrap{
-                position:relative;
-                height:24px;
-                overflow:hidden;
-            }
+    .social:hover {
+      background: #FF661A;
+      color: #fff;
+    }
 
-            .text-main,
-            .text-hover{
-                display:block;
-                line-height:24px;
-                text-transform:uppercase;
-                transition:transform .35s ease;
-            }
+    .call-btn {
+      background: #27262B;
+      color: #fff;
+      border: none;
+      display: inline-flex;
+      margin-left: 15px;
+      align-items: center;
+      gap: 12px;
+      overflow: hidden;
+      transition: background-color .35s ease;
+    }
 
-            .text-hover{
-                position:absolute;
-                left:0;
-                top:100%;
-            }
+    .call-btn:hover {
+      background: #FF661A;
+      color: #fff;
+    }
 
-            .call-btn:hover .text-main,
-            .call-btn:hover .text-hover{
-                transform:translateY(-100%);
-            }
+    .text-wrap {
+      position: relative;
+      height: 24px;
+      overflow: hidden;
+    }
 
-            .arrow-circle{
-                width:28px;
-                height:28px;
-                border:1px solid #fff;
-                border-radius:50%;
-                display:flex;
-                align-items:center;
-                justify-content:center;
-                font-size:14px;
-                flex-shrink:0;
-            }
+    .text-main,
+    .text-hover {
+      display: block;
+      line-height: 24px;
+      text-transform: uppercase;
+      transition: transform .35s ease;
+    }
 
-            .menu-inner{
-                height:100%;
-                padding-left:38px !important;
-                border-left:1px solid #d8d6d3;
-            }
+    .text-hover {
+      position: absolute;
+      left: 0;
+      top: 100%;
+    }
 
-            .menu-link{
-                color:#444246;
-                text-decoration:none;
-                text-transform:uppercase;
-                font-size:1.4rem;
-                font-weight:400;
-                letter-spacing:-0.03em;
-                transition:.4s ease;
-                margin-bottom:.75rem;
-            }
-            .menu-link:hover{
-                color:#FF661A;
-            }
+    .call-btn:hover .text-main,
+    .call-btn:hover .text-hover {
+      transform: translateY(-100%);
+    }
 
-            .sidebar, .menu-panel{
-                transition: background-color .35s ease;
-                border-radius:0 12px 12px 0;
-            }
+    .arrow-circle {
+      width: 28px;
+      height: 28px;
+      border: 1px solid #fff;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 14px;
+      flex-shrink: 0;
+    }
 
-            .menu-panel{
-                position:fixed;
-                top:0;
-                left:70px;
-                width:360px;
-                height:100vh;
-                background:#27262B;
-                transform:translateX(-100%);
-                transition:transform .45s ease, background-color .35s ease;
-                z-index:1040;
-                overflow:hidden;
-            }
+    .menu-inner {
+      height: 100%;
+      padding-left: 38px !important;
+      border-left: 1px solid #d8d6d3;
+    }
 
-            .menu-panel.open{
-                transform:translateX(0);
-                background:#F5F4F0;
-            }
+    .menu-link {
+      color: #444246;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-size: 1.4rem;
+      font-weight: 400;
+      letter-spacing: -0.03em;
+      transition: .4s ease;
+      margin-bottom: .75rem;
+    }
 
-            .sidebar{
-                transition:background-color .35s ease;
-            }
+    .menu-link:hover {
+      color: #FF661A;
+    }
 
-            .sidebar.open{
-                background:#F5F4F0 !important;
-            }
-            #preloader{
-                transition:transform .8s ease;
-            }
-            .hero-section video{
-                object-fit:cover;
-                object-position:left bottom;
-                z-index:0;
-            }
+    .sidebar,
+    .menu-panel {
+      transition: background-color .35s ease;
+      border-radius: 0 12px 12px 0;
+    }
 
-            .hero-section{
-                height:100vh !important;
-                overflow:hidden;
-            }
+    .menu-panel {
+      position: fixed;
+      top: 0;
+      left: 70px;
+      width: 360px;
+      height: 100vh;
+      background: #27262B;
+      transform: translateX(-100%);
+      transition: transform .45s ease, background-color .35s ease;
+      z-index: 1040;
+      overflow: hidden;
+    }
 
-            /*  */
-            
-        </style>
-        <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
-        <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
-        <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
-        <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
-        </head>
-        <body>
+    .menu-panel.open {
+      transform: translateX(0);
+      background: #F5F4F0;
+    }
 
-        <!-- preloader -->
-        <div id="preloader" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center" style="background:#F5F4F0; z-index:9999;">
-            <lottie-player id="logoAnimation" src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/67043691679330c81f8c647c_adelt%20logo%20animation_update.json" background="transparent" speed="1" style="width:300px;height:200px;" autoplay>
-            </lottie-player>
-            <div class="position-absolute bottom-0 start-0 w-100">
-                <div id="progressBar" style="width:0%; height:8px; background:#FF661A; opacity:1; transition: width 4s ease-in-out, opacity .25s ease;">
-                </div>
+    .sidebar {
+      transition: background-color .35s ease;
+    }
+
+    .sidebar.open {
+      background: #F5F4F0 !important;
+    }
+
+    #preloader {
+      transition: transform .8s ease;
+    }
+
+    .hero-section video {
+      object-fit: cover;
+      object-position: left bottom;
+      z-index: 0;
+    }
+
+    .hero-section {
+      height: 100vh !important;
+      overflow: hidden;
+    }
+
+    /* SERVICES  */
+    #servicesContainer {
+      overflow: hidden;
+      padding: 72px 80px 0 90px;
+      background: #fff;
+    }
+
+    .svc-subtitle {
+      font-size: 11px;
+      letter-spacing: .13em;
+      text-transform: uppercase;
+      color: #999;
+      text-align: right;
+      margin-bottom: 8px;
+    }
+
+    .svc-heading-row {
+      display: flex;
+      justify-content: flex-end;
+      align-items: baseline;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-bottom: 36px;
+    }
+
+    .svc-h2 {
+      font-size: clamp(2.1rem, 3.2vw, 3rem);
+      font-weight: 700;
+      line-height: 1.15;
+      margin: 0;
+      color: #27262b;
+    }
+
+    .days-pill {
+      background: #ff661a;
+      color: #fff;
+      font-size: clamp(.95rem, 1.6vw, 1.4rem);
+      font-weight: 700;
+      padding: 4px 20px;
+      border-radius: 50px;
+      white-space: nowrap;
+    }
+
+    .svc-strip {
+      display: flex;
+      gap: 12px;
+      height: 445px;
+    }
+
+    .svc-card {
+      flex: 0 0 auto;
+      border-radius: 16px;
+      overflow: hidden;
+      height: 100%;
+      min-width: 0;
+      will-change: width, background-color;
+    }
+
+    .svc-inner {
+      padding: 26px;
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .svc-title {
+      font-size: 1.12rem;
+      font-weight: 600;
+      line-height: 1.3;
+    }
+
+    .svc-badge {
+      font-size: .74rem;
+      font-weight: 700;
+      padding: 5px 13px;
+      border-radius: 50px;
+      white-space: nowrap;
+      flex-shrink: 0;
+      background: #27262b;
+      border: none;
+      color: #fff;
+    }
+
+    .svc-desc {
+      font-size: .71rem;
+      letter-spacing: .09em;
+      text-transform: uppercase;
+      line-height: 2.1;
+      font-weight: 500;
+    }
+
+    .figma-bar {
+      background: #27262b;
+      border-radius: 16px;
+      padding: 26px 36px;
+      margin-top: 14px;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .figma-logo-center {
+      position: absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+    }
+
+    .figma-logo-box {
+      width: 64px;
+      height: 64px;
+      border-radius: 14px;
+      background: #1e1e1e;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-figma {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      background: #ff661a;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 13px 20px;
+      font-size: .8rem;
+      font-weight: 700;
+      text-decoration: none;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      transition: opacity .2s;
+    }
+
+    .btn-figma:hover {
+      opacity: .85;
+      color: #fff;
+    }
+
+    .btn-figma .farr {
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, .5);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .78rem;
+    }
+
+    /* COMPANIES */
+    .logo-img {
+      height: 28px;
+      object-fit: contain;
+      filter: grayscale(1) opacity(.4);
+      transition: filter .35s;
+    }
+
+    .logo-img:hover {
+      filter: grayscale(0) opacity(.85);
+    }
+
+    /* CASES (CSS grid + hover pseudo-elements)  */
+    .cases-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 12px;
+    }
+
+    .case-item {
+      position: relative;
+      border-radius: 12px;
+      overflow: visible;
+      cursor: pointer;
+    }
+
+    .case-img-wrap {
+      border-radius: 12px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .case-img-wrap::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: rgba(255, 255, 255, 0);
+      transition: background .35s;
+      z-index: 1;
+      pointer-events: none;
+      border-radius: 12px;
+    }
+
+    .cases-grid.has-hover .case-item:not(.is-hovered) .case-img-wrap::after {
+      background: rgba(255, 255, 255, .62);
+    }
+
+    .case-thumb {
+      width: 100%;
+      height: 230px;
+      object-fit: cover;
+      display: block;
+      transition: transform .5s ease;
+    }
+
+    .cases-grid.has-hover .case-item.is-hovered .case-thumb {
+      transform: scale(1.04);
+    }
+
+    .case-label {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      background: #f5f4f0;
+      border-radius: 0 0 12px 12px;
+      padding: 13px 18px 15px;
+      z-index: 10;
+      opacity: 0;
+      transform: translateY(-10px);
+      transition: opacity .32s, transform .32s;
+      pointer-events: none;
+    }
+
+    .case-item.is-hovered .case-label {
+      opacity: 1;
+      transform: translateY(0);
+      pointer-events: auto;
+    }
+
+    .btn-all-cases {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      border: 1.5px solid #27262b;
+      color: #27262b;
+      border-radius: 50px;
+      padding: 11px 22px;
+      font-size: .86rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background .3s, color .3s;
+    }
+
+    .btn-all-cases:hover {
+      background: #27262b;
+      color: #fff;
+    }
+
+    .btn-all-cases .carr {
+      width: 27px;
+      height: 27px;
+      border-radius: 50%;
+      border: 1.5px solid currentColor;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: .78rem;
+      transition: background .3s, border-color .3s, color .3s;
+    }
+
+    .btn-all-cases:hover .carr {
+      background: #ff661a;
+      border-color: #ff661a;
+      color: #fff;
+    }
+
+    /*  REVIEWS */
+    .rev-track {
+      display: flex;
+      gap: 56px;
+      transition: transform .6s cubic-bezier(.25, .46, .45, .94);
+    }
+
+    .rev-card {
+      flex: 0 0 460px;
+      height: 540px;
+      border-radius: 30px !important;
+      box-shadow: 0 8px 25px rgba(0, 0, 0, .04);
+    }
+
+    .rev-text {
+      font-size: 1.18rem;
+      line-height: 1.7;
+      color: #2d2d2d;
+    }
+
+    .rev-nav-btn {
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #fff;
+      border: none;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 18px;
+      transition: .3s;
+    }
+
+    .rev-nav-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, .08);
+    }
+
+    .rev-nav-btn.next {
+      background: #ff6b1a;
+      color: #fff;
+    }
+
+    @media(max-width:992px) {
+
+      #reviewsSection .d-flex {
+        flex-direction: column;
+      }
+
+      #reviewsSection [style*="width:32%"],
+      #reviewsSection [style*="width:68%"] {
+        width: 100% !important;
+        padding-right: 0 !important;
+      }
+
+      .rev-card {
+        flex: 0 0 100%;
+        height: auto;
+      }
+
+      .rev-track {
+        gap: 25px;
+      }
+
+    }
+
+    /* PRICES*/
+    .prices-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 12px;
+    }
+
+    .price-item {
+      background: #f5f4f0;
+      border-radius: 16px;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+      position: relative;
+      min-height: 420px;
+    }
+
+    .price-item.span-full {
+      grid-column: 1 / -1;
+      min-height: auto;
+      padding: 28px;
+    }
+
+    .price-item-header {
+      padding: 24px 24px 0;
+    }
+
+    .price-item-media {
+      width: 100%;
+      margin-top: auto;
+      object-fit: cover;
+      display: block;
+    }
+
+    .price-item-video {
+      width: 100%;
+      margin-top: auto;
+      object-fit: cover;
+      display: block;
+    }
+
+    .price-item-buttons {
+      position: absolute;
+      bottom: 16px;
+      left: 16px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+      z-index: 2;
+    }
+
+    .btn-book {
+      background: #27262b;
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      cursor: pointer;
+      transition: background .3s, transform .2s;
+      font-family: 'DM Sans', sans-serif;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    .btn-book:hover {
+      background: #ff661a;
+      color: #fff;
+      transform: translateY(-1px);
+    }
+
+    .btn-figma {
+      background: rgba(255, 255, 255, .85);
+      backdrop-filter: blur(6px);
+      color: #27262b;
+      border: 1.5px solid #27262b;
+      border-radius: 50px;
+      padding: 10px 20px;
+      font-size: .72rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: .05em;
+      cursor: pointer;
+      transition: background .3s, color .3s;
+      font-family: 'DM Sans', sans-serif;
+      text-decoration: none;
+      display: inline-block;
+      white-space: nowrap;
+    }
+
+    .btn-figma:hover {
+      background: #27262b;
+      color: #fff;
+    }
+
+    /*CTA */
+    #ctaSection {
+      background: #f5f4f0;
+      border-radius: 16px;
+      margin: 60px 80px 60px 90px;
+      padding: 60px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .cta-blob {
+      position: absolute;
+      right: -80px;
+      top: -80px;
+      width: 480px;
+      height: 380px;
+      background: radial-gradient(ellipse, rgba(255, 102, 26, .45), transparent 68%);
+      border-radius: 50%;
+      filter: blur(50px);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* FOOTER */
+    footer {
+      background: #27262b;
+      padding: 60px 80px 36px 90px;
+    }
+
+    .footer-logo {
+      font-size: 10rem;
+      font-weight: 300;
+      color: #fff;
+      line-height: 1;
+      letter-spacing: -.02em;
+    }
+
+    .footer-link {
+      color: rgba(255, 255, 255, .6);
+      text-decoration: none;
+      font-size: .9rem;
+      display: block;
+      margin-bottom: 8px;
+      transition: color .3s;
+    }
+
+    .footer-link:hover,
+    .footer-link.active {
+      color: #ff661a;
+    }
+
+    .footer-social {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      border: 1.5px solid rgba(255, 255, 255, .3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(255, 255, 255, .65);
+      font-size: .83rem;
+      text-decoration: none;
+      transition: all .3s;
+    }
+
+    .footer-social:hover {
+      border-color: #ff661a;
+      color: #ff661a;
+    }
+
+    /* RESPONSIVE*/
+    @media(max-width:768px) {
+      .sidebar {
+        width: 52px !important;
+        height: 52px !important;
+        top: 10px !important;
+        left: auto !important;
+        right: 10px !important;
+        border-radius: 14px !important;
+        background: #27262b !important;
+        z-index: 2000 !important;
+      }
+
+      .sidebar .btn {
+        position: static !important;
+        transform: none !important;
+      }
+
+      .menu-panel {
+        left: 8px !important;
+        right: 8px !important;
+        top: 8px !important;
+        bottom: 8px !important;
+        width: auto !important;
+        height: auto !important;
+        transform: scale(0) !important;
+        transform-origin: top right !important;
+        opacity: 0;
+        border-radius: 20px !important;
+        overflow-y: auto !important;
+        transition: transform .42s cubic-bezier(.34, 1.3, .64, 1), opacity .25s ease !important;
+      }
+
+      .menu-panel.open {
+        transform: scale(1) !important;
+        opacity: 1 !important;
+        background: #f5f4f0 !important;
+      }
+
+      .sidebar.open {
+        background: transparent !important;
+      }
+
+      .call-btn {
+        width: 100% !important;
+        margin: 6px 0 !important;
+        justify-content: center !important;
+        border-radius: 50px !important;
+      }
+
+      .menu-inner {
+        padding-left: 20px !important;
+        border-left: none !important;
+      }
+
+      .hero-section .row {
+        margin-left: 10px !important;
+        margin-right: 10px !important;
+      }
+
+      .hero-section img[alt="Logo"] {
+        left: 16px !important;
+        width: 90px !important;
+      }
+
+      .hero-section .position-absolute.top-0.end-0 {
+        display: none !important;
+      }
+
+      #servicesContainer {
+        padding: 48px 16px 0 !important;
+      }
+
+      #companiesSection,
+      #casesSection,
+      #reviewsSection,
+      #awardsSection,
+      #pricesSection,
+      #ceoSection {
+        padding-left: 16px !important;
+        padding-right: 16px !important;
+      }
+
+      #ctaSection {
+        margin: 30px 16px !important;
+        padding: 36px 20px !important;
+      }
+
+      footer {
+        padding: 40px 16px 24px !important;
+      }
+
+      .svc-subtitle {
+        text-align: left !important;
+      }
+
+      .svc-heading-row {
+        justify-content: flex-start !important;
+      }
+
+      .svc-h2 {
+        font-size: 1.8rem !important;
+      }
+
+      .svc-strip {
+        height: 360px !important;
+        overflow-x: auto !important;
+        -webkit-overflow-scrolling: touch !important;
+        scrollbar-width: none !important;
+        scroll-snap-type: x mandatory !important;
+      }
+
+      .svc-strip::-webkit-scrollbar {
+        display: none !important;
+      }
+
+      .svc-inner {
+        min-width: 280px !important;
+        scroll-snap-align: start !important;
+      }
+
+      .figma-bar {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        gap: 14px !important;
+        padding: 20px !important;
+      }
+
+      .figma-logo-center {
+        position: static !important;
+        transform: none !important;
+        align-self: center !important;
+      }
+
+      .btn-figma {
+        font-size: .75rem !important;
+        width: 100% !important;
+        justify-content: center !important;
+      }
+
+      .logo-img {
+        height: 20px !important;
+      }
+
+      .cases-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .case-thumb {
+        height: 200px !important;
+      }
+
+      .rev-card {
+        flex: 0 0 80vw !important;
+        min-height: 360px !important;
+      }
+
+      .award-year {
+        display: none !important;
+      }
+
+      .prices-grid {
+        grid-template-columns: 1fr !important;
+      }
+
+      .price-item.span-full {
+        grid-column: auto !important;
+      }
+
+      .footer-logo {
+        font-size: 3rem !important;
+      }
+
+      #ctaSection .cta-buttons {
+        flex-direction: column !important;
+      }
+    }
+  </style>
+
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/gsap.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/gsap@3/dist/ScrollTrigger.min.js"></script>
+  <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+  <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+</head>
+
+<body>
+
+  <!-- preloader -->
+  <div id="preloader" class="position-fixed top-0 start-0 w-100 h-100 d-flex justify-content-center align-items-center"
+    style="background:#F5F4F0;z-index:9999;">
+    <lottie-player id="logoAnimation"
+      src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/67043691679330c81f8c647c_adelt%20logo%20animation_update.json"
+      background="transparent" speed="1" style="width:300px;height:200px;" autoplay></lottie-player>
+    <div class="position-absolute bottom-0 start-0 w-100">
+      <div id="progressBar"
+        style="width:0%;height:8px;background:#FF661A;opacity:1;transition:width 4s ease-in-out,opacity .25s ease;">
+      </div>
+    </div>
+  </div>
+
+  <!-- Left Sidebar -->
+  <div id="sidebar" class="sidebar position-fixed top-0 start-0 vh-100 bg-dark">
+    <button id="menuBtn" class="btn border-0 position-absolute top-50 start-50 translate-middle" style="color:#fff;">
+      <i id="menuIcon" class="fas fa-bars fs-3"></i>
+    </button>
+  </div>
+
+  <!-- Menu -->
+  <nav id="menu" class="menu-panel">
+    <div class="menu-inner d-flex flex-column p-4 h-100">
+      <img src="logo.svg" width="130" alt="Logo">
+      <div class="mt-auto">
+        <a href="#" class="menu-link d-block my-3 fs-6 px-3">OUR CASES</a>
+        <a href="#" class="menu-link d-block my-3 fs-6 px-3">REVIEWS</a>
+        <a href="#" class="menu-link d-block my-3 fs-6 px-3">OUR APPROACH</a>
+        <a href="#" class="menu-link d-block my-3 fs-6 px-3">PRICES</a>
+        <a href="#" class="menu-link d-block my-3 fs-6 px-3">BLOG</a>
+        <a href="#" class="btn call-btn rounded-pill ml-3 m-auto px-3 py-2">
+          <span class="text-wrap"><span class="text-main">Schedule a Call</span><span class="text-hover">Schedule a
+              Call</span></span>
+          <span class="arrow-circle">↗</span>
+        </a>
+      </div>
+      <div class="d-flex gap-2 mt-auto">
+        <i class="fab fa-behance social" id="nav-cnt"></i>
+        <i class="fab fa-linkedin social"></i>
+        <i class="fab fa-instagram social"></i>
+        <i class="far fa-envelope social"></i>
+        <i class="fab fa-whatsapp social"></i>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero-section d-flex align-items-center position-relative">
+    <video autoplay muted loop playsinline class="position-absolute top-0 start-0 w-100 h-100"
+      style="object-fit:cover;object-position:left bottom;z-index:0;">
+      <source
+        src="https://www.dropbox.com/scl/fi/udq8ym09m66v7c1oalw5i/main_v3.mp4?rlkey=l6g5qlp1o7lrb6x36bippo7rt&st=7iii2yrh&raw=1"
+        type="video/mp4">
+    </video>
+    <img src="logo.svg" class="position-absolute top-0 mt-4" width="120" style="left:120px;" alt="Logo">
+    <div class="container-fluid position-relative" style="z-index:2;">
+      <div class="position-absolute top-0 end-0 mt-4 me-5">
+        <a href="#" class="btn call-btn rounded-pill mt-4 px-3 py-2">
+          <span class="text-wrap"><span class="text-main">Schedule a Call</span><span class="text-hover">Schedule a
+              Call</span></span>
+          <span class="arrow-circle">↗</span>
+        </a>
+      </div>
+      <div class="row min-vh-100 align-items-center justify-content-end" style="margin-top:55px;margin-left:120px;">
+        <div class="col-lg-6">
+          <p class="text-uppercase mb-3">GO-TO-MARKET AGENCY</p>
+          <h1 style="font-size:3rem!important;line-height:1.2;">Branding, websites &<br>strategies for startups</h1>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- SERVICES  -->
+  <section id="servicesContainer">
+    <p class="svc-subtitle">Ready go-to-market plan for businesses</p>
+    <div class="svc-heading-row">
+      <h2 class="svc-h2">From Concept to<br>Market in</h2>
+      <span class="days-pill">20 DAYS</span>
+    </div>
+
+    <div class="svc-strip" id="svcStrip">
+      <div class="svc-card" data-svc="0">
+        <div class="svc-inner">
+          <div class="d-flex justify-content-between align-items-start gap-2">
+            <div class="svc-title">Briefing &amp; Express&nbsp;research</div>
+            <span class="svc-badge">1 DAY</span>
+          </div>
+          <div class="svc-desc">online interview<br>internal analysis<br>desk research</div>
+        </div>
+      </div>
+      <div class="svc-card" data-svc="1">
+        <div class="svc-inner">
+          <div class="d-flex justify-content-between align-items-start gap-2">
+            <div class="svc-title">Go-to-market strategy</div>
+            <span class="svc-badge">4 DAYS</span>
+          </div>
+          <div class="svc-desc">target audience research<br>unique selling proposition<br>mission<br>product emotional
+            message<br>tone of voice</div>
+        </div>
+      </div>
+      <div class="svc-card" data-svc="2">
+        <div class="svc-inner">
+          <div class="d-flex justify-content-between align-items-start gap-2">
+            <div class="svc-title">Branding</div>
+            <span class="svc-badge">15+ DAYS</span>
+          </div>
+          <div class="svc-desc">3 design concepts<br>logotype<br>color palette &amp; fonts<br>branding
+            assets<br>brandbook</div>
+        </div>
+      </div>
+      <div class="svc-card" data-svc="3">
+        <div class="svc-inner">
+          <div class="d-flex justify-content-between align-items-start gap-2">
+            <div class="svc-title">Web design &amp;&nbsp;development</div>
+            <span class="svc-badge">20+ DAYS</span>
+          </div>
+          <div class="svc-desc">landing page (up to 5 blocks)<br>prototype &amp; copyright<br>design<br>webflow
+            development</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Figma CTA -->
+    <div class="figma-bar">
+      <div class="text-white" style="font-size:1.25rem;line-height:1.3;">Explore work we've<br>made for our
+        clients</div>
+      <div class="figma-logo-center">
+        <div class="figma-logo-box" style="transform: rotate(-45deg);">
+          <svg width="40" height="40" viewBox="0 0 38 57" fill="none">
+            <path d="M9.5 57C14.75 57 19 52.75 19 47.5V38H9.5C4.25 38 0 42.25 0 47.5S4.25 57 9.5 57Z" fill="#0ACF83" />
+            <path d="M0 28.5C0 23.25 4.25 19 9.5 19H19V38H9.5C4.25 38 0 33.75 0 28.5Z" fill="#A259FF" />
+            <path d="M0 9.5C0 4.25 4.25 0 9.5 0H19V19H9.5C4.25 19 0 14.75 0 9.5Z" fill="#F24E1E" />
+            <path d="M19 0H28.5C33.75 0 38 4.25 38 9.5S33.75 19 28.5 19H19V0Z" fill="#FF7262" />
+            <path d="M38 28.5C38 33.75 33.75 38 28.5 38S19 33.75 19 28.5 23.25 19 28.5 19 38 23.25 38 28.5Z"
+              fill="#1ABCFE" />
+          </svg>
+        </div>
+      </div>
+      <a href="https://www.figma.com/file/YZuxfjivWYYUxqKdvnTgIe/Our-real-Figma?type=design" target="_blank"
+        class="btn call-btn rounded-pill ml-3 border border-white px-3 py-2">
+        <span class="text-wrap">
+          <span class="text-main">Open figma with real client files</span>
+          <span class="text-hover">Open figma with real client files</span>
+        </span>
+        <span class="arrow-circle">↗</span>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- COMPANIES -->
+  <section id="companiesSection" class="bg-white" style="padding:88px 80px 88px 90px;">
+    <h2 class=" mb-5" style="font-size:clamp(1.8rem,2.8vw,2.7rem);max-width:820px;color:#27262b;">Helping
+      companies from<br>pre-market to scaling-up stages</h2>
+    <div class="d-flex align-items-center flex-wrap" style="gap:44px;">
+      <img class="logo-img"
+        src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/6641d5dfd722d5be99c11f6b_Layer_1.svg"
+        alt="Pepsi" />
+      <img class="logo-img"
+        src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/6641d5de608a972d0a11bd3d_Group%203.svg"
+        alt="Placechat" />
+      <img class="logo-img"
+        src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/6641d5de9b91b5becc116fd8_Sberbank%201.svg"
+        alt="Sber Bank" />
+      <img class="logo-img"
+        src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/6641d5de67b2222cfb56ead3_Danone_dairy_logo%201.svg"
+        alt="Danone" />
+      <img class="logo-img"
+        src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/6641d65035368c7a3dad5f78_davines.png"
+        alt="Davines" />
+      <img class="logo-img"
+        src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/6641d5de7e32dd65d76f1d54_Group%2058.svg"
+        alt="Wellborn Legacy" />
+    </div>
+  </section>
+
+
+  <!-- CASES -->
+  <section id="casesSection" class="bg-white" style="padding:0 80px 88px 90px;">
+    <h2 class="fw-bold mb-4" style="font-size:clamp(1.8rem,2.8vw,2.7rem);color:#27262b;">Our cases</h2>
+    <div class="cases-grid" id="casesGrid">
+      <div class="case-item">
+        <div class="case-img-wrap"><img class="case-thumb"
+            src="https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/699ea2c70b8e0fb284cd0039_Frame%202131330754-p-800.png"
+            alt="Farm Minerals" loading="lazy" /></div>
+        <div class="case-label">
+          <div class="fw-semibold" style="font-size:.98rem;color:#27262b;">Farm Minerals</div>
+          <div class="text-muted" style="font-size:.78rem;margin-top:2px;">USA – Awards, Eco</div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-img-wrap"><img class="case-thumb"
+            src="https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/6984a515c3be49f2bb5a023c_2-p-800.png"
+            alt="Quietcubes" loading="lazy" /></div>
+        <div class="case-label">
+          <div class="fw-semibold" style="font-size:.98rem;color:#27262b;">Quietcubes</div>
+          <div class="text-muted" style="font-size:.78rem;margin-top:2px;">UAE – Awards, Tech</div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-img-wrap"><img class="case-thumb"
+            src="https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/68ecef30cb2af30ee526ca4d_cover%20var%20(4)%20(1)-p-800.png"
+            alt="Keytom" loading="lazy" /></div>
+        <div class="case-label">
+          <div class="fw-semibold" style="font-size:.98rem;color:#27262b;">Keytom</div>
+          <div class="text-muted" style="font-size:.78rem;margin-top:2px;">UAE – Banking, Fintech</div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-img-wrap"><img class="case-thumb"
+            src="https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/6a299032bded9ed717afffb5_Cover-p-800.png"
+            alt="MIRA" loading="lazy" /></div>
+        <div class="case-label">
+          <div class="fw-semibold" style="font-size:.98rem;color:#27262b;">MIRA</div>
+          <div class="text-muted" style="font-size:.78rem;margin-top:2px;">Los Angeles – AI, Product</div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-img-wrap"><img class="case-thumb"
+            src="https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/68a5c4a4ae16291f859618b8_10%20(2)-p-800.png"
+            alt="Make Design" loading="lazy" /></div>
+        <div class="case-label">
+          <div class="fw-semibold" style="font-size:.98rem;color:#27262b;">Make Design</div>
+          <div class="text-muted" style="font-size:.78rem;margin-top:2px;">Spain – Real estate, B2B</div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-img-wrap"><img class="case-thumb"
+            src="https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/686be2a1fa45eebe8fbac0d2_Cover-p-800.png"
+            alt="Exrcst" loading="lazy" /></div>
+        <div class="case-label">
+          <div class="fw-semibold" style="font-size:.98rem;color:#27262b;">Exrcst</div>
+          <div class="text-muted" style="font-size:.78rem;margin-top:2px;">Cyprus – Fashion, Clothes</div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-img-wrap"><img class="case-thumb"
+            src="https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/67ab4915c6d4ce4ac20d7043_spro-p-800.png"
+            alt="Saapro" loading="lazy" /></div>
+        <div class="case-label">
+          <div class="fw-semibold" style="font-size:.98rem;color:#27262b;">Saapro</div>
+          <div class="text-muted" style="font-size:.78rem;margin-top:2px;">UAE – Cleantech</div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-img-wrap"><img class="case-thumb"
+            src="https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/66487bf850f086aac8692969_wellborn%20case-p-500.jpg"
+            alt="Wellborn Legacy" loading="lazy" /></div>
+        <div class="case-label">
+          <div class="fw-semibold" style="font-size:.98rem;color:#27262b;">Wellborn Legacy</div>
+          <div class="text-muted" style="font-size:.78rem;margin-top:2px;">CIS – Legal</div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-img-wrap"><img class="case-thumb"
+            src="https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/67ab425eb7c4f8c1e5bbe86b_thumb-p-800.png"
+            alt="Neycher" loading="lazy" /></div>
+        <div class="case-label">
+          <div class="fw-semibold" style="font-size:.98rem;color:#27262b;">Neycher</div>
+          <div class="text-muted" style="font-size:.78rem;margin-top:2px;">USA – Health, Wellness</div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-img-wrap"><img class="case-thumb"
+            src="https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/6835fbc56390bd06520c3843_M%D0%B0cBook%20Mockup-p-800.jpg"
+            alt="Hautech.ai" loading="lazy" /></div>
+        <div class="case-label">
+          <div class="fw-semibold" style="font-size:.98rem;color:#27262b;">Hautech.ai</div>
+          <div class="text-muted" style="font-size:.78rem;margin-top:2px;">USA – Fashion, AI</div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-img-wrap"><img class="case-thumb"
+            src="https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/67d2f483b501547d9a4c44a2_startech%20CSSDA-p-800.jpg"
+            alt="Startech Awards" loading="lazy" /></div>
+        <div class="case-label">
+          <div class="fw-semibold" style="font-size:.98rem;color:#27262b;">Startech Awards</div>
+          <div class="text-muted" style="font-size:.78rem;margin-top:2px;">CIS – Awards, Tech</div>
+        </div>
+      </div>
+      <div class="case-item">
+        <div class="case-img-wrap"><img class="case-thumb"
+            src="https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/68921d4f484fa3507d4483c6_cover.avif"
+            alt="Showcase.md" loading="lazy" /></div>
+        <div class="case-label">
+          <div class="fw-semibold" style="font-size:.98rem;color:#27262b;">Showcase.md</div>
+          <div class="text-muted" style="font-size:.78rem;margin-top:2px;">USA – Beauty, Health</div>
+        </div>
+      </div>
+    </div>
+    <div class="mt-4">
+      <a href="#" class="btn call-btn rounded-pill ml-3 m-auto">
+        <span class="text-wrap"><span class="text-main">all cases</span><span class="text-hover">all cases</span></span>
+        <span class="arrow-circle">↗</span>
+      </a>
+    </div>
+  </section>
+
+
+  <!-- Reviews -->
+  <!--  Reviews -->
+  <section id="reviewsSection" class="py-5" style="background:#f5f4f0;">
+    <div class="container-fluid" style="padding:110px 0 110px 9rem;">
+
+      <div class="d-flex align-items-start">
+
+        <!-- Left -->
+        <div style="width:32%;padding-right:5rem;">
+
+          <h2
+            style="font-size:2.5rem;font-weight:400;line-height:.95;letter-spacing:-3px;color:#26252b;margin-bottom:2rem;">
+            Kind words from<br>our clients
+          </h2>
+
+          <p class="text-secondary" style="font-size:1.15rem;line-height:1.65;max-width:380px;margin-bottom:4rem;">
+            We won't just be executors. We'll be your partners, we promise. If you're not convinced, check out our
+            verified testimonials from around the world about working with us.
+          </p>
+
+          <div>
+
+            <div style="font-size:4rem;font-weight:900;line-height:1;">
+              Clu<span style="position:relative;display:inline-block;">t
+                <span
+                  style="position:absolute;top:6px;left:50%;transform:translateX(-50%);width:9px;height:9px;background:#ef3125;border-radius:50%;"></span>
+              </span>ch
             </div>
+
+            <div class="d-flex align-items-center gap-2 mt-2">
+              <strong style="font-size:1.15rem;">5.0/5.0</strong>
+              <span style="color:#ef3125;letter-spacing:2px;">★★★★★</span>
+            </div>
+
+          </div>
+
         </div>
 
-        <!-- Left Sidebar -->
-        <div id="sidebar" class="sidebar position-fixed top-0 start-0 vh-100 bg-dark">
-            <button id="menuBtn" class="btn border-0 position-absolute top-50 start-50 translate-middle" style="color:#fff;">
-                <i id="menuIcon" class="fas fa-bars fs-3" ></i> 
-            </button>
-        </div>
+        <!-- Right -->
+        <div style="width:68%;overflow:hidden;">
 
-        <!-- Menu -->
-        <nav id="menu" class="menu-panel">
-        <div class="menu-inner d-flex flex-column p-4 h-100">
-                <img src="logo.svg" width="130" alt="Logo">
-                <div class="mt-auto">
-                    <a href="#" class="menu-link d-block my-3 fs-6 px-3">OUR CASES</a>
-                    <a href="#" class="menu-link d-block my-3 fs-6 px-3">REVIEWS</a>
-                    <a href="#" class="menu-link d-block my-3 fs-6 px-3">OUR APPROACH</a>
-                    <a href="#" class="menu-link d-block my-3 fs-6 px-3">PRICES</a>
-                    <a href="#" class="menu-link d-block my-3 fs-6 px-3">BLOG</a>
-                    <a href="#" class="btn call-btn rounded-pill ml-3 m-auto px-3 py-2"> 
-                        <span class="text-wrap">
-                            <span class="text-main">Schedule a Call</span>
-                            <span class="text-hover">Schedule a Call</span>
-                        </span>
-                        <span class="arrow-circle">↗</span>
-                    </a>
-                </div>
-                <div class="d-flex gap-2 mt-auto"> 
-                    <i class="fab fa-behance social" id="nav-cnt"></i>
-                    <i class="fab fa-linkedin social"></i>
-                    <i class="fab fa-instagram social"></i>
-                    <i class="far fa-envelope social"></i>
-                    <i class="fab fa-whatsapp social"></i>
-                </div>
-            </div>
-        </nav>
+          <div class="overflow-hidden">
 
-        <!-- Main content -->
-         <!-- hero section -->  
-        <section class="hero-section d-flex align-items-center position-relative">
-            <video autoplay muted loop playsinline class="position-absolute top-0 start-0 w-100 h-100" style="object-fit:cover; object-position:left bottom; z-index:0;">
-                <source src="https://www.dropbox.com/scl/fi/udq8ym09m66v7c1oalw5i/main_v3.mp4?rlkey=l6g5qlp1o7lrb6x36bippo7rt&st=7iii2yrh&raw=1"" type="video/mp4">
-            </video>
-            <img src="logo.svg" class="position-absolute top-0 mt-4" width="120" style="left:120px;" alt="Logo">
-            <div class="container-fluid position-relative" style="z-index:2;">
-                <div class="position-absolute top-0 end-0 mt-4 me-5">
-                    <a href="#" class="btn call-btn rounded-pill mt-4 px-3 py-2">
-                        <span class="text-wrap">
-                            <span class="text-main">Schedule a Call</span>
-                            <span class="text-hover">Schedule a Call</span>
-                        </span>
-                        <span class="arrow-circle">↗</span>
-                    </a>
-                </div>
-                <div class="row min-vh-100 align-items-center justify-content-end" style="margin-top: 55px; margin-left: 120px;">
-                    <div class="col-lg-6">
-                        <p class="text-uppercase mb-3"> GO-TO-MARKET AGENCY </p>
-                        <h1 class="hero-title" style="font-size: 3rem !important; line-height: 1.2;"> Branding, websites & <br> strategies for startups </h1>
+            <div class="rev-track" id="revTrack">
+
+              <!-- CARD -->
+              <div class="card rev-card border-0 rounded-1">
+                <div class="card-body d-flex flex-column p-5">
+                  <div class="d-flex justify-content-between align-items-start mb-5">
+                    <img src="https://i.pravatar.cc/70?img=47" class="rounded-circle" width="68" height="68">
+                    <div class="text-end fw-semibold text-secondary">
+                      Startech Awards
                     </div>
+                  </div>
+                  <p class="rev-text flex-grow-1">
+                    Collaborating with adelt was like discovering the secret sauce to branding and web design. They
+                    turned our vision into something truly memorable. Working with them felt less like hiring an agency
+                    and more like collaborating with creative friends.
+                  </p>
+                  <div class="border-top pt-4">
+                    <h4 class="fw-bold mb-1">
+                      Liza Tikher
+                      <i class="fab fa-linkedin text-secondary"></i>
+                    </h4>
+                    <div class="text-secondary">
+                      CMO Startech
+                    </div>
+                  </div>
                 </div>
+              </div>
+              <!-- CARD -->
+              <div class="card rev-card border-0 rounded-1">
+                <div class="card-body d-flex flex-column p-5">
+                  <div class="d-flex justify-content-between align-items-start mb-5">
+                    <img src="https://i.pravatar.cc/70?img=47" class="rounded-circle" width="68" height="68">
+                    <div class="text-end fw-semibold text-secondary">
+                      Startech Awards
+                    </div>
+                  </div>
+                  <p class="rev-text flex-grow-1">
+                    Collaborating with adelt was like discovering the secret sauce to branding and web design. They
+                    turned our vision into something truly memorable. Working with them felt less like hiring an agency
+                    and more like collaborating with creative friends.
+                  </p>
+                  <div class="border-top pt-4">
+                    <h4 class="fw-bold mb-1">
+                      Liza Tikher
+                      <i class="fab fa-linkedin text-secondary"></i>
+                    </h4>
+                    <div class="text-secondary">
+                      CMO Startech
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- CARD -->
+              <div class="card rev-card border-0 rounded-1">
+                <div class="card-body d-flex flex-column p-5">
+                  <div class="d-flex justify-content-between align-items-start mb-5">
+                    <img src="https://i.pravatar.cc/70?img=47" class="rounded-circle" width="68" height="68">
+                    <div class="text-end fw-semibold text-secondary">
+                      Startech Awards
+                    </div>
+                  </div>
+                  <p class="rev-text flex-grow-1">
+                    Collaborating with adelt was like discovering the secret sauce to branding and web design. They
+                    turned our vision into something truly memorable. Working with them felt less like hiring an agency
+                    and more like collaborating with creative friends.
+                  </p>
+                  <div class="border-top pt-4">
+                    <h4 class="fw-bold mb-1">
+                      Liza Tikher
+                      <i class="fab fa-linkedin text-secondary"></i>
+                    </h4>
+                    <div class="text-secondary">
+                      CMO Startech
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <!-- CARD -->
+              <div class="card rev-card border-0 rounded-1">
+                <div class="card-body d-flex flex-column p-5">
+                  <div class="d-flex justify-content-between align-items-start mb-5">
+                    <img src="https://i.pravatar.cc/70?img=25" class="rounded-circle" width="68" height="68">
+                    <div class="text-end fw-semibold text-secondary">
+                      Davines
+                    </div>
+                  </div>
+                  <p class="rev-text flex-grow-1">
+                    We are thoroughly impressed with the landing page designed by Adelt. Their creative approach and
+                    attention to detail resulted in a seamless digital experience that perfectly represents our brand.
+                  </p>
+                  <div class="border-top pt-4">
+                    <h4 class="fw-bold mb-1">
+                      Diana Alieva
+                      <i class="fab fa-instagram text-secondary"></i>
+                    </h4>
+                    <div class="text-secondary">
+                      Fashion & Beauty Marketing Expert
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
-        </section>
+          </div>
+          <div class="d-flex gap-3 mt-5">
+            <button id="revPrev" class="rev-nav-btn">
+              <i class="fas fa-arrow-left"></i>
+            </button>
+            <button id="revNext" class="rev-nav-btn next">
+              <i class="fas fa-arrow-right"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-       
-        <script>
-            const preloader = document.getElementById('preloader');
-            const player = document.getElementById('logoAnimation');
-            const progressBar = document.getElementById('progressBar');
-            window.addEventListener('load', () => {
-                requestAnimationFrame(() => {
-                    progressBar.style.width = '100%';
-                });
-            });
 
-            player.addEventListener('complete', () => {
-                progressBar.style.opacity = '0';
-                preloader.style.transition =
-                    'transform .8s cubic-bezier(.77,0,.175,1)';
-                preloader.style.transform =
-                    'translateY(-100%)';
-                setTimeout(() => {
-                    preloader.remove();
-                }, 800);
-            });
-        </script>
+  <!--AWARDS -->
+  <section id="awardsSection" class="bg-white" style="padding:80px 80px 80px 90px;">
+    <div class="d-flex gap-5 align-items-start awards-inner">
+      <h2 class="mr-3 flex-shrink-0 " style="width:450px;font-size:clamp(2rem,3vw,2.8rem);color:#27262b;">Awards</h2>
+      <div class="flex-grow-1">
+        <!-- Each row -->
+        <div class="d-flex align-items-center gap-3 py-3 border-bottom"><span class="flex-grow-1"
+            style="font-size:.95rem;">Saapro – Site Of The Day</span><span class="award-year text-muted"
+            style="font-size:.85rem;white-space:nowrap;">2025</span><span class="fw-bold text-end"
+            style="width:150px;font-size:.85rem;">awwwards.</span></div>
+        <div class="d-flex align-items-center gap-3 py-3 border-bottom"><span class="flex-grow-1"
+            style="font-size:.95rem;">Saapro – Website Of The Day</span><span class="award-year text-muted"
+            style="font-size:.85rem;white-space:nowrap;">2025</span><span class="fw-bold text-end"
+            style="width:150px;font-size:.85rem;">CSSDA</span></div>
+        <div class="d-flex align-items-center gap-3 py-3 border-bottom"><span class="flex-grow-1"
+            style="font-size:.95rem;">Saapro – Silver in the nomination Best Industry Website</span><span
+            class="award-year text-muted" style="font-size:.85rem;white-space:nowrap;">2025</span><span
+            class="fw-bold text-end" style="width:150px;font-size:.85rem;">TAGLINE</span></div>
+        <div class="d-flex align-items-center gap-3 py-3 border-bottom"><span class="flex-grow-1"
+            style="font-size:.95rem;">Saapro – Shortlisted for the Website of the Year</span><span
+            class="award-year text-muted" style="font-size:.85rem;white-space:nowrap;">2025</span><span
+            class="fw-bold text-end" style="width:150px;font-size:.85rem;">TAGLINE</span></div>
+        <div class="d-flex align-items-center gap-3 py-3 border-bottom"><span class="flex-grow-1"
+            style="font-size:.95rem;">Saapro – Best International Website</span><span class="award-year text-muted"
+            style="font-size:.85rem;white-space:nowrap;">2025</span><span class="fw-bold text-end"
+            style="width:150px;font-size:.85rem;">TAGLINE</span></div>
+        <div class="d-flex align-items-center gap-3 py-3 border-bottom"><span class="flex-grow-1"
+            style="font-size:.95rem;">Startech Awards – Website of The Day</span><span class="award-year text-muted"
+            style="font-size:.85rem;white-space:nowrap;">2024</span><span class="fw-bold text-end"
+            style="width:150px;font-size:.85rem;">ORPETRON</span></div>
+        <div class="d-flex align-items-center gap-3 py-3 border-bottom"><span class="flex-grow-1"
+            style="font-size:.95rem;">Startech Awards – Website of The Day</span><span class="award-year text-muted"
+            style="font-size:.85rem;white-space:nowrap;">2024</span><span class="fw-bold text-end"
+            style="width:150px;font-size:.85rem;">CSSDA</span></div>
+        <div class="d-flex align-items-center gap-3 py-3 border-bottom"><span class="flex-grow-1"
+            style="font-size:.95rem;">Startech Awards – UI, UX, Innovation Design Award</span><span
+            class="award-year text-muted" style="font-size:.85rem;white-space:nowrap;">2024</span><span
+            class="fw-bold text-end" style="width:150px;font-size:.85rem;">CSSDA</span></div>
+        <div class="d-flex align-items-center gap-3 py-3 border-bottom"><span class="flex-grow-1"
+            style="font-size:.95rem;">Startech Awards – Honorable Mention</span><span class="award-year text-muted"
+            style="font-size:.85rem;white-space:nowrap;">2024</span><span class="fw-bold text-end"
+            style="width:150px;font-size:.85rem;">awwwards.</span></div>
+        <div class="d-flex align-items-center gap-3 py-3 border-bottom"><span class="flex-grow-1"
+            style="font-size:.95rem;">Adelt – Honorable Mention</span><span class="award-year text-muted"
+            style="font-size:.85rem;white-space:nowrap;">2024</span><span class="fw-bold text-end"
+            style="width:150px;font-size:.85rem;">awwwards.</span></div>
+        <div class="d-flex align-items-center gap-3 py-3 border-bottom"><span class="flex-grow-1"
+            style="font-size:.95rem;">Adelt – UI, UX, Innovation Design Award</span><span class="award-year text-muted"
+            style="font-size:.85rem;white-space:nowrap;">2024</span><span class="fw-bold text-end"
+            style="width:150px;font-size:.85rem;">CSSDA</span></div>
+      </div>
+    </div>
+  </section>
 
-        <script>
-            const menu = document.getElementById('menu');
-            const sidebar = document.getElementById('sidebar');
-            const menuBtn = document.getElementById('menuBtn');
-            const menuIcon = document.getElementById('menuIcon');
-            menuBtn.addEventListener('click', () => {
-            menu.classList.toggle('open');
-            sidebar.classList.toggle('open');
 
-            if (menu.classList.contains('open')) {
-                menuBtn.style.color = '#27262B';
-                menuIcon.className = 'fas fa-xmark fs-4';
-            } else {
-                menuBtn.style.color = '#fff';
-                menuIcon.className = 'fas fa-bars fs-4';
+  <!--  PRICES -->
+  <section id="pricesSection" class="bg-white" style="padding:80px 80px 80px 90px;">
+    <h2 class="mb-5" style="font-size:clamp(2rem,3vw,2.8rem);color:#27262b;">And what about<br>prices?</h2>
+    <div class="prices-grid">
+
+      <!-- Branding -->
+      <div class="price-item">
+        <div class="price-item-header">
+          <h3 class="mb-0" style="font-size:1.25rem;font-weight:500;color:#27262b;">Branding</h3>
+          <div style="font-size:1.05rem;color:#888;margin-top:2px;">2500€+</div>
+        </div>
+        <div class="price-item-buttons">
+          <a href="#" class="btn call-btn rounded-pill ml-3 m-auto px-3 py-2">
+            <span class="text-wrap"><span class="text-main">book a call</span><span class="text-hover">book a
+                call</span></span>
+          </a>
+        </div>
+        <video class="price-item-video" autoplay loop muted playsinline
+          poster="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49%2F67b8bc6e049707d2f0d2ce90_Scene%20%2311-poster-00001.jpg">
+          <source
+            src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49%2F67b8bc6e049707d2f0d2ce90_Scene%20%2311-transcode.mp4"
+            type="video/mp4">
+          <source
+            src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49%2F67b8bc6e049707d2f0d2ce90_Scene%20%2311-transcode.webm"
+            type="video/webm">
+        </video>
+      </div>
+
+      <!-- Website design & development -->
+      <div class="price-item">
+        <div class="price-item-header">
+          <h3 class="mb-0" style="font-size:1.25rem;font-weight:500;color:#27262b;">Website design<br>&amp; development
+          </h3>
+          <div style="font-size:1.05rem;color:#888;margin-top:2px;">6000€+</div>
+        </div>
+        <div class="price-item-buttons">
+          <a href="#" class="btn call-btn rounded-pill ml-3 m-auto px-3 py-2">
+            <span class="text-wrap"><span class="text-main">book a call</span><span class="text-hover">book a
+                call</span></span>
+          </a>
+        </div>
+        <img class="price-item-media"
+          src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/67b4e94207ffb612961a1975_website%20adelt.webp"
+          alt="Website design" loading="lazy">
+      </div>
+
+      <!-- Marketing & performance strategies -->
+      <div class="price-item">
+        <div class="price-item-header">
+          <h3 class="mb-0" style="font-size:1.25rem;font-weight:500;color:#27262b;">Marketing
+            &amp;<br>performance<br>strategies</h3>
+          <div style="font-size:1.05rem;color:#888;margin-top:2px;">3000€</div>
+        </div>
+        <div class="price-item-buttons">
+          <a href="#" class="btn call-btn rounded-pill ml-3 m-auto px-3 py-2">
+            <span class="text-wrap"><span class="text-main">book a call</span><span class="text-hover">book a
+                call</span></span>
+          </a>
+        </div>
+        <img class="price-item-media"
+          src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/67b4e9d0fb39b0fafb8d1e78_marketing%20adelt.webp"
+          alt="Marketing strategies" loading="lazy">
+      </div>
+
+      <!-- UX/UI -->
+      <div class="price-item">
+        <div class="price-item-header">
+          <h3 class="mb-0" style="font-size:1.25rem;font-weight:500;color:#27262b;">UX/UI</h3>
+          <div style="font-size:1.05rem;color:#888;margin-top:2px;">35€/hour</div>
+        </div>
+        <div class="price-item-buttons">
+          <a href="#" class="btn call-btn rounded-pill ml-3 m-auto px-3 py-2">
+            <span class="text-wrap"><span class="text-main">figma portfolio</span><span class="text-hover">figma
+                portfolio</span></span>
+          </a>
+          <a href="#" class="btn call-btn rounded-pill ml-3 m-auto px-3 py-2">
+            <span class="text-wrap"><span class="text-main">book a call</span><span class="text-hover">book a
+                call</span></span>
+          </a>
+        </div>
+        <img class="price-item-media"
+          src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/67b4e9fe52dd978227567cba_Metaballs%202%201web.webp"
+          alt="UX/UI" loading="lazy">
+      </div>
+
+      <!-- Design & Technical Support -->
+      <div class="price-item span-full">
+        <div style="padding:28px;">
+          <h3 class="mb-0" style="font-size:1.25rem;font-weight:500;color:#27262b;">Design &amp; Technical Support</h3>
+          <div style="font-size:1.05rem;color:#888;margin-top:2px;">35€/hour</div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- CEO -->
+  <section id="ceoSection" class="py-5" style="padding:90px 0 90px 5rem;background:#fff;">
+    <div class="d-flex align-items-start" style="gap:5rem;">
+      <!-- LEFT -->
+      <div class="pl-5" style="width:310px;">
+        <h2 class="fw-normal lh-1 mb-5" style="font-size:3.5rem;letter-spacing:-1px;color:#27262b;">
+          And a few words
+          <br>
+          from CEO
+        </h2>
+        <div class="position-relative d-inline-block">
+          <img
+            src="https://cdn.prod.website-files.com/65cd1e9047aa815857f61f49/664612108e2fb577d23af1d6_Rectangle%2065.webp"
+            class="rounded-4" style="width:200px;height:240px;object-fit:cover;">
+          <div
+            class="position-absolute bottom-0 end-0 translate-middle bg-white rounded-circle shadow d-flex justify-content-center align-items-center"
+            style="width:58px;height:58px;">
+            <i class="fab fa-linkedin fs-3 text-dark"></i>
+          </div>
+        </div>
+        <h4 class="fw-bold mt-3 mb-1">
+          Anastasia Dontsova
+        </h4>
+        <div class="text-secondary fs-4">
+          CEO adelt
+        </div>
+      </div>
+      <!-- RIGHT -->
+      <div class="flex-grow-1">
+        <!-- Bubble 1 -->
+        <div class="rounded-pill px-4 py-3 mb-4" style="background:#efebe4;max-width:640px;">
+          <div style="font-size:1.2rem;line-height:1.1;">
+            At ADELT we're passionate about weaving together standout
+            marketing strategies, creating memorable branding, and
+            delivering sleek web designs ✴️
+          </div>
+        </div>
+        <!-- Bubble 2 -->
+        <div class="rounded-pill px-4 py-3 mb-5 d-inline-block" style="background:#efebe4;">
+          <div style="font-size:1.2rem;line-height:1.1;">
+            Can't wait to start your project!
+          </div>
+        </div>
+        <!-- CTA -->
+        <div class="rounded-4 d-flex justify-content-between align-items-center px-4 py-4"
+          style="background:#ff6518;max-width:750px;">
+          <div class="text-white" style="font-size:1.7rem;line-height:1.4;">
+            Book a trial 15-min workshop
+            <br>
+            for your business
+          </div>
+          <br>
+          <a href="#" class="btn call-btn rounded-pill mt-4 px-3 py-2">
+            <span class="text-wrap"><span class="text-main">Schedule a Call</span><span class="text-hover">Schedule a
+                Call</span></span>
+            <span class="arrow-circle">↗</span>
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!--CTA  -->
+  <section id="ctaSection">
+    <div class="cta-blob"></div>
+    <div class="position-relative" style="z-index:1;">
+      <h2 class="fw-bold mb-2" style="font-size:clamp(2.2rem,4vw,3.5rem);color:#27262b;">Let's make something <span
+          style="color:#ff661a;">innovative</span></h2>
+      <p class="text-muted mb-4" style="font-size:.9rem;">Kick start a project with us today</p>
+      <div class="d-flex gap-3 flex-wrap cta-buttons">
+        <a href="#" class="btn call-btn rounded-pill px-4 py-2">
+          <span class="text-wrap"><span class="text-main">Discuss a Project</span><span class="text-hover">Discuss a
+              Project</span></span>
+          <span class="arrow-circle">↗</span>
+        </a>
+        <a href="#" class="btn call-btn rounded-pill px-4 py-2">
+          <span class="text-wrap"><span class="text-main">Schedule a Call</span><span class="text-hover">Schedule a
+              Call</span></span>
+          <span class="arrow-circle">↗</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="d-flex justify-content-between align-items-start flex-wrap gap-4">
+      <div class="footer-logo">adelt</div>
+      <div class="d-flex flex-column">
+        <a href="#" class="footer-link">Services</a>
+        <a href="#" class="footer-link active">Our works</a>
+        <a href="#" class="footer-link">Plans</a>
+      </div>
+      <div>
+        <p class="text-white mb-1" style="font-size:.88rem;">Barcelona, Spain</p>
+        <p style="font-size:.82rem;color:rgba(255,255,255,.5);line-height:1.6;">C/ de Cristóbal de Moura,<br>49, Sant
+          Martí<br>08019</p>
+        <p class="text-white mb-1 mt-3" style="font-size:.88rem;">+34675389458</p>
+        <p style="font-size:.88rem;color:rgba(255,255,255,.5);">business@adelt.io</p>
+      </div>
+      <div class="d-flex flex-column gap-2">
+        <div class="d-flex gap-2">
+          <a href="#" class="footer-social"><i class="fab fa-clutch"></i></a>
+          <a href="#" class="footer-social"><i class="fab fa-behance"></i></a>
+          <a href="#" class="footer-social"><i class="fab fa-instagram"></i></a>
+          <a href="#" class="footer-social"><i class="fab fa-whatsapp"></i></a>
+          <a href="#" class="footer-social"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+      </div>
+    </div>
+    <div class="d-flex justify-content-end mt-5">
+      <p class="mb-0" style="font-size:.82rem;color:rgba(255,255,255,.4);">© adelt 2025</p>
+    </div>
+  </footer>
+
+
+
+
+
+
+
+
+
+  <!-- SCRIPTS -->
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+
+  <script>
+    // Grab elements we need to control screen loader
+    const preloader = document.getElementById('preloader');
+    const player = document.getElementById('logoAnimation');
+    const progressBar = document.getElementById('progressBar');
+
+    // Fill the progress bar once page finishes loading
+    window.addEventListener('load', () => {
+      requestAnimationFrame(() => {
+        progressBar.style.width = '100%';
+      });
+    });
+
+    // When the Lottie anim finishes playing, clean up screen loader
+    player.addEventListener('complete', () => {
+      progressBar.style.opacity = '0';
+      preloader.style.transition = 'transform .8s cubic-bezier(.77, 0, .175, 1)';
+      preloader.style.transform = 'translateY(-100%)';
+      setTimeout(() => {
+        preloader.remove();
+      }, 800);
+    });
+  </script>
+
+  <script>
+    // Elements for sliding navigation bar
+    const menu = document.getElementById('menu');
+    const sidebar = document.getElementById('sidebar');
+    const menuBtn = document.getElementById('menuBtn');
+    const menuIcon = document.getElementById('menuIcon');
+
+    // Toggle nav panel state and update font colors / icons on click
+    menuBtn.addEventListener('click', () => {
+      menu.classList.toggle('open');
+      sidebar.classList.toggle('open');
+
+      if (menu.classList.contains('open')) {
+        menuBtn.style.color = '#27262B';
+        menuIcon.className = 'fas fa-xmark fs-4';
+      } else {
+        menuBtn.style.color = '#fff';
+        menuIcon.className = 'fas fa-bars fs-4';
+      }
+    });
+  </script>
+
+  <script>
+    // Wheel scroll detector for manual services card display 
+    $(function () {
+      let revealed = 1;
+      $(window).on('wheel', function (e) {
+        const sectionTop = $('#servicesContainer').offset().top;
+        const scrollTop = $(window).scrollTop();
+        if (scrollTop < sectionTop - 200) return;
+
+        if (e.originalEvent.deltaY > 0) {
+          if (revealed < 4) {
+            $('.service-card').eq(revealed).css({ width: '33%', opacity: '1' });
+            revealed++;
+            if (revealed === 4) {
+              $('.service-card').css({ width: '25%', opacity: '1' });
+              $('.active-card').css({ background: '#F5F4F0', color: '#27262B' });
             }
-            });
-        </script>
-        
-        <script>
-            $(function(){
-            let revealed = 1;
-            $(window).on('wheel', function(e){
-                const sectionTop = $('#servicesContainer').offset().top;
-                const scrollTop = $(window).scrollTop();
-                if(scrollTop < sectionTop - 200) return;
-                if(e.originalEvent.deltaY > 0){
-                    if(revealed < 4){
-                        $('.service-card').eq(revealed)
-                            .css({
-                                width:'33%',
-                                opacity:'1'
-                            });
-                        revealed++;
-                        if(revealed === 4){
-                            $('.service-card').css({
-                                width:'25%',
-                                opacity:'1'
-                            });
-                            $('.active-card')
-                                .css({
-                                    background:'#F5F4F0',
-                                    color:'#27262B'
-                                });
-                        }
-                    }
-                }
-            });
-        });
-        </script>
-        
-        </body>
-        </html>
+          }
+        }
+      });
+    });
+  </script>
+
+  <script>
+    // Horizontal accordion timeline controller using GSAP ScrollTrigger
+    gsap.registerPlugin(ScrollTrigger);
+
+    (function initServices() {
+      const strip = document.getElementById('svcStrip');
+      if (!strip) return;
+      const cards = [...strip.querySelectorAll('.svc-card')];
+      const badges = cards.map(c => c.querySelector('.svc-badge'));
+      const N = cards.length;
+      const GAP = 12;
+
+      // Base widths: equal width of all cards when collapsed
+      const eqW = () => (strip.offsetWidth - GAP * (N - 1)) / N;
+      // Active width: width of current expanded card
+      const actW = n => (N - n) * eqW();
+
+      // Mobile check: disable horizontal timeline animations and let CSS scroll snap handle layouts
+      if (window.innerWidth <= 768) {
+        cards.forEach(c => gsap.set(c, { width: '80vw', backgroundColor: '#f5f4f0', color: '#27262b' }));
+        badges.forEach(b => gsap.set(b, { backgroundColor: '#ff661a', color: '#fff' }));
+        return;
+      }
+
+      // Initial card layout configuration (first panel expanded by default)
+      gsap.set(cards[0], { width: () => actW(0), backgroundColor: '#ff661a', color: '#fff' });
+      gsap.set(cards.slice(1), { width: 0, backgroundColor: '#27262b', color: '#fff' });
+      gsap.set(badges, { backgroundColor: '#27262b', color: '#fff' });
+
+      // Create scroll-linked timeline to pin the viewport container on scroll
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: '#servicesContainer',
+          start: 'top top',
+          end: '+=2800',
+          pin: true,
+          scrub: 1,
+          pinSpacing: true,
+          invalidateOnRefresh: true
+        }
+      });
+
+      function activate(card, pos, dur) {
+        tl.to(card, { backgroundColor: '#ff661a', color: '#fff', duration: dur }, pos);
+      }
+
+      function settle(card, badge, pos, dur) {
+        tl.to(card, { backgroundColor: '#f5f4f0', color: '#27262b', duration: dur }, pos);
+        tl.to(badge, { backgroundColor: '#ff661a', color: '#fff', duration: dur }, pos);
+      }
+
+      // Accordion panels translation transitions sequence
+      tl.to(cards[0], { width: () => eqW(), duration: .28 }, 0);
+      settle(cards[0], badges[0], 0, .28);
+      tl.to(cards[1], { width: () => actW(1), duration: .28 }, 0);
+      activate(cards[1], 0, .28);
+
+      tl.to(cards[1], { width: () => eqW(), duration: .28 }, .28);
+      settle(cards[1], badges[1], .28, .28);
+      tl.to(cards[2], { width: () => actW(2), duration: .28 }, .28);
+      activate(cards[2], .28, .28);
+
+      tl.to(cards[2], { width: () => eqW(), duration: .28 }, .56);
+      settle(cards[2], badges[2], .56, .28);
+      tl.to(cards[3], { width: () => actW(3), duration: .28 }, .56);
+      activate(cards[3], .56, .28);
+
+      settle(cards[3], badges[3], .84, .16);
+    })();
+
+    // Portfolio items hover overlay controller
+    $(function () {
+      const $grid = $('#casesGrid');
+
+      // Darken non-focused project cards when user points mouse at one
+      $grid.on('mouseenter', '.case-item', function () {
+        $grid.addClass('has-hover');
+        $(this).addClass('is-hovered');
+      });
+
+      $grid.on('mouseleave', '.case-item', function () {
+        $(this).removeClass('is-hovered');
+      });
+
+      // Clean up hover properties when mouse leaves cases section
+      $grid.on('mouseleave', function () {
+        $grid.removeClass('has-hover');
+        $grid.find('.is-hovered').removeClass('is-hovered');
+      });
+    });
+
+    // Reviews section sliding carousel
+    $(function () {
+      const $track = $('#revTrack');
+      const $cards = $track.children('.rev-card');
+      const n = $cards.length;
+      let idx = 0;
+
+      // Card width + spacing gap value
+      function getCW() {
+        if ($cards.length === 0) return 450;
+        const cardWidth = $cards.outerWidth();
+        const gap = parseInt($track.css('gap')) || 20;
+        return cardWidth + gap;
+      }
+
+      // Slide and bound the layout track bounds
+      function slide() {
+        const CW = getCW();
+        const containerWidth = $track.parent().width();
+        const trackWidth = n * CW - (parseInt($track.css('gap')) || 20);
+        let tx = -idx * CW;
+        const maxTx = -(trackWidth - containerWidth);
+
+        if (maxTx < 0) {
+          // Cap horizontal translation so we do not display empty gray zones
+          if (tx < maxTx) {
+            tx = maxTx;
+          }
+          $track.css('transform', 'translateX(' + tx + 'px)');
+          $('#revPrev').prop('disabled', idx === 0);
+          $('#revNext').prop('disabled', tx === maxTx);
+        } else {
+          // If viewport fits all elements, keep track centered
+          $track.css('transform', 'translateX(0px)');
+          $('#revPrev').prop('disabled', true);
+          $('#revNext').prop('disabled', true);
+        }
+      }
+
+      slide();
+
+      $('#revNext').on('click', function () {
+        if (idx < n - 1) {
+          idx++;
+          slide();
+        }
+      });
+
+      $('#revPrev').on('click', function () {
+        if (idx > 0) {
+          idx--;
+          slide();
+        }
+      });
+
+      $(window).on('resize', function () {
+        slide();
+      });
+    });
+  </script>
+</body>
+</html>
