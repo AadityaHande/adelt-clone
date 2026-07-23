@@ -17,7 +17,7 @@
       font-family: 'DM Sans', sans-serif;
     }
 
-   /* SIDEBAR / MENU / HERO */
+    /* SIDEBAR / MENU / HERO */
     .sidebar {
       width: 70px;
       z-index: 1050;
@@ -478,7 +478,11 @@
 
     @media(max-width:992px) {
 
-      #reviewsSection .d-flex {
+      #reviewsSection>.container-fluid {
+        padding: 60px 16px !important;
+      }
+
+      #reviewsSection>.container-fluid>.d-flex {
         flex-direction: column;
       }
 
@@ -703,7 +707,7 @@
       }
 
       .menu-panel.open {
-        transform: scale(1) !important;
+        transform: scale(0.7) !important;
         opacity: 1 !important;
         background: #f5f4f0 !important;
       }
@@ -736,6 +740,89 @@
 
       .hero-section .position-absolute.top-0.end-0 {
         display: none !important;
+      }
+
+      .desktop-hero-video {
+        display: none !important;
+      }
+
+      .mobile-hero-video {
+        display: block !important;
+      }
+
+      .hero-section h1 {
+        font-size: 2.1rem !important;
+        line-height: 1.2 !important;
+      }
+
+      /* AWARDS - stack on mobile */
+      .awards-inner {
+        flex-direction: column !important;
+        gap: 1.5rem !important;
+      }
+
+      .awards-inner>h2 {
+        width: auto !important;
+      }
+
+      .awards-inner .flex-grow-1>div {
+        flex-wrap: wrap !important;
+        row-gap: 6px !important;
+      }
+
+      .award-year {
+        display: block !important;
+        order: -1 !important;
+        width: 100% !important;
+      }
+
+      /* CEO SECTION - stack on mobile, reorder photo below CTA */
+      #ceoSection {
+        padding: 60px 0 60px 0 !important;
+      }
+
+      #ceoSection>.d-flex {
+        flex-direction: column !important;
+        gap: 2rem !important;
+      }
+
+      #ceoSection>.d-flex>div.pl-5 {
+        display: contents !important;
+      }
+
+      #ceoSection h2 {
+        order: 1;
+        font-size: 2.1rem !important;
+        margin-bottom: 1.5rem !important;
+      }
+
+      #ceoSection .position-relative.d-inline-block {
+        order: 3;
+        margin-top: .5rem;
+      }
+
+      #ceoSection h4 {
+        order: 4;
+      }
+
+      #ceoSection .text-secondary.fs-4 {
+        order: 5;
+        margin-bottom: 1rem !important;
+      }
+
+      #ceoSection>.d-flex>.flex-grow-1 {
+        order: 2;
+      }
+
+      #ceoSection .rounded-pill {
+        max-width: 100% !important;
+      }
+
+      #ceoSection .rounded-4.d-flex {
+        flex-direction: column !important;
+        align-items: flex-start !important;
+        max-width: 100% !important;
+        gap: 1rem !important;
       }
 
       #servicesContainer {
@@ -790,6 +877,17 @@
         scroll-snap-align: start !important;
       }
 
+      .svc-card {
+        width: 80vw !important;
+        background: #f5f4f0 !important;
+        color: #27262b !important;
+      }
+
+      .svc-badge {
+        background: #ff661a !important;
+        color: #fff !important;
+      }
+
       .figma-bar {
         flex-direction: column !important;
         align-items: flex-start !important;
@@ -824,10 +922,6 @@
       .rev-card {
         flex: 0 0 80vw !important;
         min-height: 360px !important;
-      }
-
-      .award-year {
-        display: none !important;
       }
 
       .prices-grid {
@@ -904,19 +998,34 @@
 
   <!-- Hero -->
   <section class="hero-section d-flex align-items-center position-relative">
-    <video autoplay muted loop playsinline class="position-absolute top-0 start-0 w-100 h-100"
+    <video autoplay muted loop playsinline class="desktop-hero-video position-absolute top-0 start-0 w-100 h-100"
       style="object-fit:cover;object-position:left bottom;z-index:0;">
       <source
         src="https://www.dropbox.com/scl/fi/udq8ym09m66v7c1oalw5i/main_v3.mp4?rlkey=l6g5qlp1o7lrb6x36bippo7rt&st=7iii2yrh&raw=1"
         type="video/mp4">
     </video>
+    <video autoplay muted loop playsinline class="mobile-hero-video position-absolute top-0 start-0 w-100 h-100"
+      style="object-fit:cover;object-position:center;z-index:0;display:none;">
+      <source
+        src="https://www.dropbox.com/scl/fi/6q320tda67d2guvtl952a/main_final_vertical_v2_01.mp4?rlkey=7wc23ccpdwe9vbm34y31818d5&st=w1jkmqke&raw=1"
+        type="video/mp4">
+    </video>
     <img src="logo.svg" class="position-absolute top-0 mt-4" width="120" style="left:120px;" alt="Logo">
     <div class="container-fluid position-relative" style="z-index:2;">
       <div class="position-absolute top-0 end-0 mt-4 me-5">
-        <a href="#" class="btn call-btn rounded-pill mt-4 px-3 py-2">
-          <span class="text-wrap"><span class="text-main">Schedule a Call</span><span class="text-hover">Schedule a
-              Call</span></span>
-          <span class="arrow-circle">↗</span>
+        <a href="register.html" class="btn call-btn rounded-pill mt-4 px-3 py-2">
+            <span class="text-wrap">
+                <span class="text-main">Login</span>
+                <span class="text-hover">Login</span>
+            </span>
+            <span class="arrow-circle">↗</span>
+        </a>
+        <a href="#" class="btn call-btn rounded-pill px-3 mt-4 py-2">
+            <span class="text-wrap">
+                <span class="text-main">Schedule a Call</span>
+                <span class="text-hover">Schedule a Call</span>
+            </span> 
+            <span class="arrow-circle">↗</span>
         </a>
       </div>
       <div class="row min-vh-100 align-items-center justify-content-end" style="margin-top:55px;margin-left:120px;">
@@ -1584,13 +1693,6 @@
   </footer>
 
 
-
-
-
-
-
-
-
   <!-- SCRIPTS -->
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
@@ -1814,5 +1916,7 @@
       });
     });
   </script>
+
 </body>
+
 </html>
