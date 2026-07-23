@@ -50,6 +50,7 @@
         <div class="col-12 col-md-10 col-lg-8 col-xl-7">
           <div class="card border-0 rounded-4 overflow-hidden page-shell">
             <div class="row g-0">
+              <!-- Left panel: dark brand block that explains the page purpose. -->
               <div class="col-lg-5 brand-panel text-white p-4 p-md-5 d-flex flex-column justify-content-between">
                 <div>
                   <span class="badge rounded-pill brand-chip text-white-50 mb-3 px-3 py-2">Secure access</span>
@@ -65,6 +66,7 @@
                 </div>
               </div>
 
+              <!-- Right panel: actual login form with Bootstrap validation states. -->
               <div class="col-lg-7 form-panel p-4 p-md-5">
                 <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
                   <div>
@@ -99,6 +101,8 @@
                     <a href="#" class="link-secondary text-decoration-none">Forgot password?</a>
                   </div>
 
+                    <div id="loginMsg" class="alert alert-danger d-none py-2" role="alert"></div>
+
                   <button type="submit" class="btn btn-dark w-100 py-2 fw-semibold">Sign in</button>
                 </form>
 
@@ -115,33 +119,55 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Login validation, email regex, required password, and password visibility toggle.
+    // The login check compares the entered values against the saved localStorage record.
     const loginForm = document.getElementById('loginForm');
     const togglePassword = document.getElementById('togglePassword');
     const passwordInput = document.getElementById('password');
     const emailInput = document.getElementById('email');
     const passwordFeedback = document.getElementById('passwordFeedback');
+    const loginMsg = document.getElementById('loginMsg');
+    const storageKey = 'adeltRegisteredUser';
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
+    // Flip the input type so the user can see or hide the password.
     togglePassword.addEventListener('click', function () {
       const isHidden = passwordInput.type === 'password';
       passwordInput.type = isHidden ? 'text' : 'password';
       togglePassword.textContent = isHidden ? 'Hide' : 'Show';
     });
 
+    // Prevent submit until both fields are valid, then send the user to the dashboard.
     loginForm.addEventListener('submit', function (event) {
       event.preventDefault();
 
       const emailValid = emailRegex.test(emailInput.value.trim());
       const passwordValid = passwordInput.value.trim() !== '';
+      const savedUserRaw = localStorage.getItem(storageKey);
+      const savedUser = savedUserRaw ? JSON.parse(savedUserRaw) : null;
 
       emailInput.classList.toggle('is-invalid', !emailValid);
       passwordInput.classList.toggle('is-invalid', !passwordValid);
       passwordFeedback.style.display = passwordValid ? 'none' : 'block';
+      loginMsg.classList.add('d-none');
 
       if (!emailValid || !passwordValid) {
         return;
       }
 
+      if (!savedUser) {
+        loginMsg.textContent = 'No saved account found. Please register first.';
+        loginMsg.classList.remove('d-none');
+        return;
+      }
+
+      if (savedUser.email !== emailInput.value.trim() || savedUser.password !== passwordInput.value.trim()) {
+        loginMsg.textContent = 'Wrong email or password. Please try again.';
+        loginMsg.classList.remove('d-none');
+        return;
+      }
+
+      // The page is static for now, so successful login routes to the dashboard screen.
       window.location.href = 'dashboard.html';
     });
   </script>
