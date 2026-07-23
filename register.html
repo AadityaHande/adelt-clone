@@ -132,7 +132,7 @@
         event.preventDefault();
 
         const emailValid = emailRegex.test(regEmail.value.trim());
-        const phoneValid = /^[0-9]{10}$/.test(phone.value.trim());
+        const phoneValid = /^[6-9][0-9]{9}$/.test(phone.value.trim());
         const passwordValid = passwordRegex.test(password.value.trim());
 
         // Toggle Bootstrap's invalid state so the feedback appears inline.
