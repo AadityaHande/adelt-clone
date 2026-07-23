@@ -976,6 +976,7 @@
       text-decoration: none;
       transition: .3s;
       white-space: nowrap;
+      cursor: pointer;
     }
 
     .filter-pill:hover {
@@ -986,6 +987,131 @@
     .filter-pill.active {
       background: #ff661a;
       color: #fff;
+    }
+
+    /* SEARCH BOX */
+    .blog-search-wrap {
+      position: relative;
+      max-width: 340px;
+      width: 100%;
+      margin-left: auto;
+    }
+
+    .blog-search-input {
+      width: 100%;
+      background: #f5f4f0;
+      border: none;
+      border-radius: 50px;
+      padding: 12px 20px 12px 44px;
+      font-size: .95rem;
+      font-family: 'DM Sans', sans-serif;
+      color: #27262b;
+      outline: none;
+      transition: box-shadow .3s;
+    }
+
+    .blog-search-input::placeholder {
+      color: #9c9a97;
+    }
+
+    .blog-search-input:focus {
+      box-shadow: 0 0 0 2px #ff661a;
+    }
+
+    .blog-search-icon {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #9c9a97;
+      font-size: .9rem;
+      pointer-events: none;
+    }
+
+    .blog-filters-row {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+
+    .blog-no-results {
+      display: none;
+      padding: 60px 90px 100px 90px;
+      background: #fff;
+      color: #6b6b6b;
+      font-size: 1.1rem;
+      text-align: center;
+    }
+
+    .blog-no-results.show {
+      display: block;
+    }
+
+    .blog-tag {
+      display: inline-block;
+      font-size: .7rem;
+      font-weight: 700;
+      letter-spacing: .04em;
+      text-transform: uppercase;
+      background: #f5f4f0;
+      color: #ff661a;
+      border-radius: 50px;
+      padding: 5px 14px;
+      margin-bottom: 12px;
+    }
+
+    .blog-card {
+      transition: opacity .3s ease, transform .3s ease;
+    }
+
+    .blog-card.blog-hidden {
+      display: none;
+    }
+
+    @media(max-width:768px) {
+      .blog-header {
+        padding: 16px 16px 0;
+      }
+
+      .blog-hero {
+        padding: 24px 16px 20px;
+      }
+
+      .blog-h1 {
+        font-size: 2rem;
+        margin-bottom: 20px;
+      }
+
+      .filter-row {
+        flex-wrap: wrap !important;
+        gap: 10px !important;
+      }
+
+      .blog-filters-row {
+        flex-direction: column;
+        align-items: flex-start !important;
+      }
+
+      .blog-search-wrap {
+        max-width: 100%;
+        margin-left: 0;
+      }
+
+      .blog-grid {
+        grid-template-columns: 1fr !important;
+        gap: 36px !important;
+        padding: 32px 16px 60px !important;
+      }
+
+      .blog-thumb {
+        height: 220px;
+      }
+
+      .blog-no-results {
+        padding: 40px 16px 60px !important;
+      }
     }
 
     .blog-grid {
@@ -1060,34 +1186,9 @@
       line-height: 1.6;
     }
 
-    @media(max-width:768px) {
-      .blog-header {
-        padding: 16px 16px 0;
-      }
-
-      .blog-hero {
-        padding: 24px 16px 20px;
-      }
-
-      .blog-h1 {
-        font-size: 2rem;
-        margin-bottom: 20px;
-      }
-
-      .filter-row {
-        flex-wrap: wrap !important;
-        gap: 10px !important;
-      }
-
-      .blog-grid {
-        grid-template-columns: 1fr !important;
-        gap: 36px !important;
-        padding: 32px 16px 60px !important;
-      }
-
-      .blog-thumb {
-        height: 220px;
-      }
+    ::selection {
+      background-color: #FF661A;
+      color: white;
     }
   </style>
 
@@ -1122,7 +1223,8 @@
   <!-- Menu -->
   <nav id="menu" class="menu-panel">
     <div class="menu-inner d-flex flex-column p-4 h-100">
-      <img src="logo.png" width="130" alt="Logo">
+      <img src="logo.svg" width="130" alt="Logo">
+
       <div class="mt-auto">
         <a href="index.html#casesSection" class="menu-link d-block my-3 fs-6 px-3">OUR CASES</a>
         <a href="index.html#reviewsSection" class="menu-link d-block my-3 fs-6 px-3">REVIEWS</a>
@@ -1147,7 +1249,7 @@
 
   <!-- Blog Header -->
   <div class="blog-header d-flex justify-content-between align-items-center">
-    <a href="index.html"><img src="logo.png" class="blog-logo" alt="Logo"></a>
+    <a href="index.html"><img src="logo.svg" class="blog-logo" alt="Logo"></a>
     <a href="#" class="btn call-btn rounded-pill px-3 py-2">
       <span class="text-wrap"><span class="text-main">Schedule a Call</span><span class="text-hover">Schedule a
           Call</span></span>
@@ -1158,61 +1260,82 @@
   <!-- Blog Hero / Filters -->
   <section class="blog-hero">
     <h1 class="blog-h1">Our blog</h1>
-    <div class="d-flex flex-wrap gap-3 filter-row">
-      <a href="#" class="filter-pill active">All posts</a>
-      <a href="#" class="filter-pill">Agency life</a>
-      <a href="#" class="filter-pill">Case study</a>
-      <a href="#" class="filter-pill">Marketing</a>
-      <a href="#" class="filter-pill">How To</a>
+    <div class="blog-filters-row">
+      <div class="d-flex flex-wrap gap-3 filter-row" id="filterRow">
+        <button type="button" class="filter-pill active" data-filter="all">All posts</button>
+        <button type="button" class="filter-pill" data-filter="agency-life">Agency life</button>
+        <button type="button" class="filter-pill" data-filter="case-study">Case study</button>
+        <button type="button" class="filter-pill" data-filter="marketing">Marketing</button>
+        <button type="button" class="filter-pill" data-filter="how-to">How To</button>
+      </div>
+      <div class="blog-search-wrap">
+        <i class="fas fa-search blog-search-icon"></i>
+        <input type="text" id="blogSearchInput" class="blog-search-input" placeholder="Search articles...">
+      </div>
     </div>
   </section>
 
   <!-- Blog Grid -->
-  <section class="blog-grid">
+  <section class="blog-grid" id="blogGrid">
 
-    <a href="blog-post.html" class="blog-card">
+    <a href="blog-post.html" class="blog-card" data-category="case-study"
+      data-title="How Startech Awards' Branding Won Three International Awards"
+      data-desc="Learn how we developed a visually striking identity that reflects innovation, technological progress, and futuristic aesthetics—helping the Startech Awards brand shine on the global stage.">
       <div class="blog-thumb"
         style="background-image:url('https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/67c8557b3ae49394b2aa52c4_115%20(2)%20(1)-2.png');background-size:cover;background-position:center;">
         <span class="blog-thumb-arrow"><i class="fas fa-arrow-up-right-from-square" style="font-size:.85rem;"></i></span>
       </div>
+      <span class="blog-tag">Case study</span>
       <div class="blog-title">How Startech Awards' Branding Won Three International Awards</div>
       <div class="blog-desc">Learn how we developed a visually striking identity that reflects innovation,
         technological progress, and futuristic aesthetics—helping the Startech Awards brand shine on the global
         stage.</div>
     </a>
 
-    <a href="#" class="blog-card">
+    <a href="#" class="blog-card" data-category="marketing"
+      data-title="Marketing in Latin America: Word of Mouth"
+      data-desc="Discover the power of word-of-mouth advertising in Latin America and why asking clients how they're doing is crucial for success. We provide essential strategies and cultural insights to enhance your marketing efforts and build authentic client relationships in the region.">
       <div class="blog-thumb"
         style="background-image:url('https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/67112bc28bcb5d6d7af22582_66698e23ab32dcdd277e673b_Frame%20336275.webp');background-size:cover;background-position:center;">
         <span class="blog-thumb-arrow"><i class="fas fa-arrow-up-right-from-square" style="font-size:.85rem;"></i></span>
       </div>
+      <span class="blog-tag">Marketing</span>
       <div class="blog-title">Marketing in Latin America: Word of Mouth</div>
       <div class="blog-desc">Discover the power of word-of-mouth advertising in Latin America and why asking clients
         how they're doing is crucial for success. We provide essential strategies and cultural insights to enhance
         your marketing efforts and build authentic client relationships in the region.</div>
     </a>
 
-    <a href="#" class="blog-card">
+    <a href="#" class="blog-card" data-category="marketing"
+      data-title="Marketing for Neobanks: Why do they need a face?"
+      data-desc="Discover why neobanks need a human touch despite their digital nature and explore key marketing strategies to build trust and engagement in the fintech industry.">
       <div class="blog-thumb"
         style="background-image:url('https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/67112bd71c9fdde786e63945_66698e9bc047a6935f4bd7f6_1-1.webp');background-size:cover;background-position:center;">
         <span class="blog-thumb-arrow"><i class="fas fa-arrow-up-right-from-square" style="font-size:.85rem;"></i></span>
       </div>
+      <span class="blog-tag">Marketing</span>
       <div class="blog-title">Marketing for Neobanks: Why do they need a "face"?</div>
       <div class="blog-desc">Discover why neobanks need a human touch despite their digital nature and explore key
         marketing strategies to build trust and engagement in the fintech industry.</div>
     </a>
 
-    <a href="#" class="blog-card">
+    <a href="#" class="blog-card" data-category="how-to"
+      data-title="How brands can work with ChatGPT"
+      data-desc="Actionable insights and strategies for integrating AI-driven communication into your brand's digital marketing efforts.">
       <div class="blog-thumb"
         style="background-image:url('https://cdn.prod.website-files.com/6641e9813aa442bf959c5659/67112be39b81cf89e9087ce8_66698ef7d1869fb6764bb73f_104.webp');background-size:cover;background-position:center;">
         <span class="blog-thumb-arrow"><i class="fas fa-arrow-up-right-from-square" style="font-size:.85rem;"></i></span>
       </div>
+      <span class="blog-tag">How To</span>
       <div class="blog-title">How brands can work with ChatGPT</div>
       <div class="blog-desc">Actionable insights and strategies for integrating AI-driven communication into your
         brand's digital marketing efforts.</div>
     </a>
 
   </section>
+
+  <!-- No results message -->
+  <div class="blog-no-results" id="blogNoResults">No articles match your search. Try a different keyword or filter.</div>
 
   <!--CTA  -->
   <section id="ctaSection">
@@ -1309,6 +1432,52 @@
         menuIcon.className = 'fas fa-bars fs-4';
       }
     });
+  </script>
+
+  <!-- BLOG SEARCH + FILTER -->
+  <script>
+    (function () {
+      const filterButtons = document.querySelectorAll('#filterRow .filter-pill');
+      const searchInput = document.getElementById('blogSearchInput');
+      const cards = document.querySelectorAll('#blogGrid .blog-card');
+      const noResults = document.getElementById('blogNoResults');
+
+      let activeFilter = 'all';
+
+      function applyFilters() {
+        const query = searchInput.value.trim().toLowerCase();
+        let visibleCount = 0;
+
+        cards.forEach(card => {
+          const category = card.getAttribute('data-category');
+          const title = (card.getAttribute('data-title') || '').toLowerCase();
+          const desc = (card.getAttribute('data-desc') || '').toLowerCase();
+
+          const matchesFilter = activeFilter === 'all' || category === activeFilter;
+          const matchesSearch = query === '' || title.includes(query) || desc.includes(query);
+
+          if (matchesFilter && matchesSearch) {
+            card.classList.remove('blog-hidden');
+            visibleCount++;
+          } else {
+            card.classList.add('blog-hidden');
+          }
+        });
+
+        noResults.classList.toggle('show', visibleCount === 0);
+      }
+
+      filterButtons.forEach(btn => {
+        btn.addEventListener('click', () => {
+          filterButtons.forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          activeFilter = btn.getAttribute('data-filter');
+          applyFilters();
+        });
+      });
+
+      searchInput.addEventListener('input', applyFilters);
+    })();
   </script>
 
 </body>
