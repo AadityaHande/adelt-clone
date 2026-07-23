@@ -40,6 +40,14 @@
     .form-panel {
       background: linear-gradient(180deg, #ffffff 0%, #fbfaf7 100%);
     }
+    /* Custom popup styles */
+    .custom-popup-overlay { position: fixed; inset: 0; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.45); z-index: 1050; opacity: 0; pointer-events: none; transition: opacity .18s ease; }
+    .custom-popup-overlay.show { opacity: 1; pointer-events: auto; }
+    .custom-popup { background: linear-gradient(180deg,#ffffff 0%,#fbfaf7 100%); border-radius: 12px; padding: 1.25rem; max-width: 420px; width: 92%; box-shadow: 0 18px 50px rgba(39,38,43,0.16); border: 1px solid rgba(39,38,43,0.06); text-align: center; }
+    .custom-popup .title { font-weight: 700; margin-bottom: .25rem; color: #27262b; }
+    .custom-popup .msg { color: #575757; margin-bottom: 1rem; }
+    .btn-close-popup { background: #ff661a; color: #fff; border: none; padding: .5rem .85rem; border-radius: 8px; }
+    .btn-close-popup:active { transform: translateY(1px); }
   </style>
 </head>
 <body class="bg-body-tertiary">
@@ -117,6 +125,17 @@
     </div>
   </main>
 
+  <!-- Custom popup (themed) -->
+  <div id="customPopupOverlay" class="custom-popup-overlay" aria-hidden="true" role="dialog" aria-modal="true">
+    <div class="custom-popup" role="document">
+      <div class="title" id="customPopupTitle">Success</div>
+      <div class="msg" id="customPopupMessage">Login successful.</div>
+      <div class="d-flex justify-content-center">
+        <button id="closePopupBtn" class="btn-close-popup">Close</button>
+      </div>
+    </div>
+  </div>
+
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
     // Login validation, email regex, required password, and password visibility toggle.
@@ -129,6 +148,25 @@
     const loginMsg = document.getElementById('loginMsg');
     const storageKey = 'adeltRegisteredUser';
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+
+    // Popup elements and helper
+    const popupOverlay = document.getElementById('customPopupOverlay');
+    const popupTitle = document.getElementById('customPopupTitle');
+    const popupMessage = document.getElementById('customPopupMessage');
+    const closePopupBtn = document.getElementById('closePopupBtn');
+
+    function showPopup(message, type = 'success') {
+      popupTitle.textContent = type === 'success' ? 'Success' : 'Notice';
+      popupMessage.textContent = message;
+      popupOverlay.classList.add('show');
+      popupOverlay.setAttribute('aria-hidden', 'false');
+    }
+
+    closePopupBtn.addEventListener('click', () => {
+      popupOverlay.classList.remove('show');
+      popupOverlay.setAttribute('aria-hidden', 'true');
+      window.location.href = 'dashboard.html';
+    });
 
     // Flip the input type so the user can see or hide the password.
     togglePassword.addEventListener('click', function () {
@@ -167,8 +205,9 @@
         return;
       }
 
-      // The page is static for now, so successful login routes to the dashboard screen.
-      window.location.href = 'dashboard.html';
+      // Show success popup; closing it takes the user to the dashboard.
+      showPopup('Login successful.');
+      loginForm.reset();
     });
   </script>
 </body>
