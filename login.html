@@ -34,14 +34,14 @@
                                 <form id="loginForm" novalidate>
                                     <div class="mb-3">
                                         <label for="email" class="form-label">Email address</label>
-                                        <input type="email" class="form-control" id="email" placeholder="name@example.com" required>
+                                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
                                         <div class="invalid-feedback">Please enter a valid email address.</div>
                                     </div>
 
                                     <div class="mb-3">
                                         <label for="password" class="form-label">Password</label>
                                         <div class="input-group">
-                                            <input type="password" class="form-control" id="password" placeholder="Your password" required>
+                                            <input type="password" class="form-control" id="password" placeholder="Your password">
                                             <button class="btn btn-outline-secondary" type="button" id="togglePassword">Show</button>
                                             <div class="invalid-feedback">Password is required.</div>
                                         </div>
@@ -59,7 +59,7 @@
                                 </form>
 
                                 <p class="text-center text-secondary small mt-4 mb-0">
-                                    Don't have an account? <a href="#" class="link-dark fw-semibold text-decoration-none">Create one</a>
+                                    Don't have an account? <a href="register.html" class="link-dark fw-semibold text-decoration-none">Create one</a>
                                 </p>
                             </div>
                         </div>
@@ -74,6 +74,8 @@
         const loginForm = document.getElementById('loginForm');
         const togglePassword = document.getElementById('togglePassword');
         const passwordInput = document.getElementById('password');
+        const emailInput = document.getElementById('email');
+        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
         togglePassword.addEventListener('click', function () {
             const isHidden = passwordInput.type === 'password';
@@ -84,15 +86,14 @@
         loginForm.addEventListener('submit', function (event) {
             event.preventDefault();
 
-            const email = document.getElementById('email');
-            const password = document.getElementById('password');
-            const emailValid = email.checkValidity() && email.value.trim() !== '';
-            const passwordValid = password.value.trim() !== '';
+            const emailValid = emailRegex.test(emailInput.value.trim());
+            const passwordValid = passwordInput.value.trim() !== '';
 
-            email.classList.toggle('is-invalid', !emailValid);
-            password.classList.toggle('is-invalid', !passwordValid);
+            emailInput.classList.toggle('is-invalid', !emailValid);
+            passwordInput.classList.toggle('is-invalid', !passwordValid);
 
             if (!emailValid || !passwordValid) {
+                alert('Please enter a valid email and password.');
                 return;
             }
 
