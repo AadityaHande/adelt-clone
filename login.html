@@ -1,104 +1,149 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login | Adelt</title>
-    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Login | Adelt</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+  <style>
+    body {
+      background:
+        radial-gradient(circle at top left, rgba(255, 102, 26, 0.12), transparent 24%),
+        radial-gradient(circle at bottom right, rgba(39, 38, 43, 0.06), transparent 22%),
+        linear-gradient(180deg, #f8f7f3 0%, #efece4 100%);
+    }
+
+    .page-shell {
+      border: 1px solid rgba(39, 38, 43, 0.08);
+      box-shadow: 0 28px 70px rgba(39, 38, 43, 0.14);
+    }
+
+    .brand-panel {
+      background:
+        linear-gradient(160deg, rgba(39, 38, 43, 0.98), rgba(39, 38, 43, 0.92)),
+        radial-gradient(circle at top right, rgba(255, 102, 26, 0.25), transparent 35%);
+    }
+
+    .small-rule {
+      width: 62px;
+      height: 4px;
+      border-radius: 999px;
+      background: #ff661a;
+    }
+
+    .brand-chip {
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      background: rgba(255, 255, 255, 0.06);
+      letter-spacing: .12em;
+    }
+
+    .form-panel {
+      background: linear-gradient(180deg, #ffffff 0%, #fbfaf7 100%);
+    }
+  </style>
 </head>
-<body class="bg-light">
-
-    <main class="min-vh-100 d-flex align-items-center py-4">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-12 col-md-10 col-lg-8 col-xl-7">
-                    <div class="card border-0 shadow-lg overflow-hidden rounded-4">
-                        <div class="row g-0">
-                            <div class="col-lg-5 bg-dark text-white p-4 p-md-5 d-flex flex-column justify-content-between">
-                                <div>
-                                    <p class="text-uppercase small text-white-50 mb-2">Adelt</p>
-                                    <h1 class="h3 fw-bold mb-3">Welcome back</h1>
-                                    <p class="mb-0 text-white-50">Sign in to continue to your dashboard and manage your projects.</p>
-                                </div>
-                                <ul class="list-unstyled small mb-0 mt-4">
-                                    <li class="mb-2">Safe login </li>
-                                    <li class="mb-2">Bootstrap CSS styling</li>
-                                    <li>with Javascript</li>
-                                </ul>
-                            </div>
-
-                            <div class="col-lg-7 bg-white p-4 p-md-5">
-                                <h2 class="h4 fw-semibold mb-1">Login</h2>
-                                <p class="text-secondary mb-4">Enter your details to sign in.</p>
-
-                                <form id="loginForm" novalidate>
-                                    <div class="mb-3">
-                                        <label for="email" class="form-label">Email address</label>
-                                        <input type="email" class="form-control" id="email" placeholder="name@example.com">
-                                        <div class="invalid-feedback">Please enter a valid email address.</div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="password" class="form-label">Password</label>
-                                        <div class="input-group">
-                                            <input type="password" class="form-control" id="password" placeholder="Your password">
-                                            <button class="btn btn-outline-secondary" type="button" id="togglePassword">Show</button>
-                                            <div class="invalid-feedback">Password is required.</div>
-                                        </div>
-                                    </div>
-
-                                    <div class="d-flex justify-content-between align-items-center mb-4 gap-3 flex-wrap">
-                                        <div class="form-check">
-                                            <input class="form-check-input" type="checkbox" value="" id="rememberMe">
-                                            <label class="form-check-label" for="rememberMe">Remember me</label>
-                                        </div>
-                                        <a href="#" class="link-secondary text-decoration-none">Forgot password?</a>
-                                    </div>
-
-                                    <button type="submit" class="btn btn-dark w-100">Sign in</button>
-                                </form>
-
-                                <p class="text-center text-secondary small mt-4 mb-0">
-                                    Don't have an account? <a href="register.html" class="link-dark fw-semibold text-decoration-none">Create one</a>
-                                </p>
-                            </div>
-                        </div>
-                    </div>
+<body class="bg-body-tertiary">
+  <a href="index.html" class="btn btn-outline-dark btn-sm rounded-pill position-fixed top-0 start-0 m-3 z-3">Back to home</a>
+  <main class="min-vh-100 d-flex align-items-center py-5">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8 col-xl-7">
+          <div class="card border-0 rounded-4 overflow-hidden page-shell">
+            <div class="row g-0">
+              <div class="col-lg-5 brand-panel text-white p-4 p-md-5 d-flex flex-column justify-content-between">
+                <div>
+                  <span class="badge rounded-pill brand-chip text-white-50 mb-3 px-3 py-2">Secure access</span>
+                  <div class="small text-uppercase text-white-50 mb-2" style="letter-spacing:.18em;">Adelt</div>
+                  <div class="small-rule mb-3"></div>
+                  <h1 class="display-6 fw-bold mb-3 lh-1">Welcome back</h1>
+                  <p class="text-white-50 mb-0" style="max-width: 16rem;">Sign in to continue to your dashboard.</p>
                 </div>
+                <div class="mt-4 d-flex flex-wrap gap-2">
+                  <span class="badge text-bg-light text-dark rounded-pill">Clean UI</span>
+                  <span class="badge text-bg-light text-dark rounded-pill">Bootstrap first</span>
+                  <span class="badge text-bg-light text-dark rounded-pill">JS validation</span>
+                </div>
+              </div>
+
+              <div class="col-lg-7 form-panel p-4 p-md-5">
+                <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
+                  <div>
+                    <p class="small text-uppercase text-secondary mb-2" style="letter-spacing:.18em;">Login</p>
+                    <h2 class="h3 fw-bold mb-2">Sign in to Adelt</h2>
+                    <p class="text-secondary mb-0">Use your account details below.</p>
+                  </div>
+                  <span class="badge rounded-pill text-bg-warning text-dark px-3 py-2 align-self-start">Adelt</span>
+                </div>
+
+                <form id="loginForm" novalidate>
+                  <div class="mb-3">
+                    <label for="email" class="form-label">Email address</label>
+                    <input type="email" class="form-control" id="email" placeholder="name@example.com" autocomplete="email">
+                    <div class="invalid-feedback">Please enter a valid email address.</div>
+                  </div>
+
+                  <div class="mb-3">
+                    <label for="password" class="form-label">Password</label>
+                    <div class="input-group">
+                      <input type="password" class="form-control" id="password" placeholder="Your password" autocomplete="current-password">
+                      <button class="btn btn-outline-dark" type="button" id="togglePassword">Show</button>
+                    </div>
+                    <div class="invalid-feedback d-block" id="passwordFeedback" style="display:none;">Password is required.</div>
+                  </div>
+
+                  <div class="d-flex justify-content-between align-items-center gap-3 flex-wrap mb-4">
+                    <div class="form-check">
+                      <input class="form-check-input" type="checkbox" value="" id="rememberMe">
+                      <label class="form-check-label" for="rememberMe">Remember me</label>
+                    </div>
+                    <a href="#" class="link-secondary text-decoration-none">Forgot password?</a>
+                  </div>
+
+                  <button type="submit" class="btn btn-dark w-100 py-2 fw-semibold">Sign in</button>
+                </form>
+
+                <p class="text-center text-secondary small mt-4 mb-0">
+                  Don't have an account? <a href="register.html" class="link-dark fw-semibold text-decoration-none">Create one</a>
+                </p>
+              </div>
             </div>
+          </div>
         </div>
-    </main>
+      </div>
+    </div>
+  </main>
 
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
-    <script>
-        const loginForm = document.getElementById('loginForm');
-        const togglePassword = document.getElementById('togglePassword');
-        const passwordInput = document.getElementById('password');
-        const emailInput = document.getElementById('email');
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+  <script>
+    const loginForm = document.getElementById('loginForm');
+    const togglePassword = document.getElementById('togglePassword');
+    const passwordInput = document.getElementById('password');
+    const emailInput = document.getElementById('email');
+    const passwordFeedback = document.getElementById('passwordFeedback');
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
-        togglePassword.addEventListener('click', function () {
-            const isHidden = passwordInput.type === 'password';
-            passwordInput.type = isHidden ? 'text' : 'password';
-            togglePassword.textContent = isHidden ? 'Hide' : 'Show';
-        });
+    togglePassword.addEventListener('click', function () {
+      const isHidden = passwordInput.type === 'password';
+      passwordInput.type = isHidden ? 'text' : 'password';
+      togglePassword.textContent = isHidden ? 'Hide' : 'Show';
+    });
 
-        loginForm.addEventListener('submit', function (event) {
-            event.preventDefault();
+    loginForm.addEventListener('submit', function (event) {
+      event.preventDefault();
 
-            const emailValid = emailRegex.test(emailInput.value.trim());
-            const passwordValid = passwordInput.value.trim() !== '';
+      const emailValid = emailRegex.test(emailInput.value.trim());
+      const passwordValid = passwordInput.value.trim() !== '';
 
-            emailInput.classList.toggle('is-invalid', !emailValid);
-            passwordInput.classList.toggle('is-invalid', !passwordValid);
+      emailInput.classList.toggle('is-invalid', !emailValid);
+      passwordInput.classList.toggle('is-invalid', !passwordValid);
+      passwordFeedback.style.display = passwordValid ? 'none' : 'block';
 
-            if (!emailValid || !passwordValid) {
-                alert('Please enter a valid email and password.');
-                return;
-            }
+      if (!emailValid || !passwordValid) {
+        return;
+      }
 
-            window.location.href = 'dashboard.html';
-        });
-    </script>
+      window.location.href = 'dashboard.html';
+    });
+  </script>
 </body>
 </html>
