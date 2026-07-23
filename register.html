@@ -50,6 +50,7 @@
         <div class="col-12 col-md-10 col-lg-8 col-xl-7">
           <div class="card border-0 rounded-4 overflow-hidden page-shell">
             <div class="row g-0">
+              <!-- Left panel: mirrors login and explains the registration purpose. -->
               <div class="col-lg-5 brand-panel text-white p-4 p-md-5 d-flex flex-column justify-content-between">
                 <div>
                   <span class="badge rounded-pill brand-chip text-white-50 mb-3 px-3 py-2">Quick signup</span>
@@ -65,6 +66,7 @@
                 </div>
               </div>
 
+              <!-- Right panel: registration form with Bootstrap validation feedback. -->
               <div class="col-lg-7 form-panel p-4 p-md-5">
                 <div class="d-flex justify-content-between align-items-start gap-3 mb-4">
                   <div>
@@ -114,12 +116,15 @@
 
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
   <script>
+    // Registration validation: email regex, 10-digit phone check, and strong password pattern.
+    // When the form is valid, save the user details in localStorage so login can verify them later.
     (() => {
       const registerForm = document.getElementById('registerForm');
       const regEmail = document.getElementById('regEmail');
       const phone = document.getElementById('phone');
       const password = document.getElementById('password');
       const successMsg = document.getElementById('successMsg');
+      const storageKey = 'adeltRegisteredUser';
       const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
       const passwordRegex = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[^A-Za-z0-9]).{8,}$/;
 
@@ -130,6 +135,7 @@
         const phoneValid = /^[0-9]{10}$/.test(phone.value.trim());
         const passwordValid = passwordRegex.test(password.value.trim());
 
+        // Toggle Bootstrap's invalid state so the feedback appears inline.
         regEmail.classList.toggle('is-invalid', !emailValid);
         phone.classList.toggle('is-invalid', !phoneValid);
         password.classList.toggle('is-invalid', !passwordValid);
@@ -139,6 +145,12 @@
           return;
         }
 
+        // On success, show the confirmation message and reset the form.
+        localStorage.setItem(storageKey, JSON.stringify({
+          email: regEmail.value.trim(),
+          phone: phone.value.trim(),
+          password: password.value.trim()
+        }));
         successMsg.classList.remove('d-none');
         registerForm.reset();
         regEmail.classList.remove('is-invalid');
